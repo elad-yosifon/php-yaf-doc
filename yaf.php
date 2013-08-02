@@ -27,6 +27,10 @@ define('YAF_ERR_TYPE_ERROR', 521, true);
 final class Yaf_Application {
 
 	/**
+	 * @var Yaf_Application
+	 */
+	protected static $_app;
+	/**
 	 * @var Yaf_Config_Abstract
 	 */
 	protected $config;
@@ -34,10 +38,6 @@ final class Yaf_Application {
 	 * @var Yaf_Dispatcher
 	 */
 	protected $dispatcher;
-	/**
-	 * @var Yaf_Application
-	 */
-	protected static $_app;
 	/**
 	 * @var array
 	 */
@@ -51,18 +51,17 @@ final class Yaf_Application {
 	 */
 	protected $_environ = YAF_ENVIRON;
 	/**
-	 * @since v2.1.2
+	 * @since 2.1.2
 	 * @var string
 	 */
 	protected $_err_no = 0;
 	/**
-	 * @since v2.1.2
+	 * @since 2.1.2
 	 * @var string
 	 */
 	protected $_err_msg = "";
 
 	/**
-	 * @since v1.0.0
 	 * @link http://www.php.net/manual/en/yaf-application.construct.php
 	 *
 	 * @param string|array $config - A ini config file path, or a config array
@@ -113,7 +112,6 @@ final class Yaf_Application {
 	 * Run a Yaf_Application, let the Yaf_Application accept a request, and route the request, dispatch to controller/action, and render response.
 	 * return response to client finally.
 	 *
-	 * @since v1.0.0
 	 * @link http://www.php.net/manual/en/yaf-application.run.php
 	 */
 	public function run(){}
@@ -122,7 +120,6 @@ final class Yaf_Application {
 	 * This method is typically used to run Yaf_Application in a crontab work.
 	 * Make the crontab work can also use the autoloader and Bootstrap mechanism.
 	 *
-	 * @since v1.0.0
 	 * @link http://www.php.net/manual/en/yaf-application.execute.php
 	 *
 	 * @param callable $entry - a valid callback
@@ -133,7 +130,6 @@ final class Yaf_Application {
 	/**
 	 * Retrieve the Yaf_Application instance, alternatively, we also could use Yaf_Dispatcher::getApplication().
 	 *
-	 * @since v1.0.0
 	 * @link http://www.php.net/manual/en/yaf-application.app.php
 	 *
 	 * @return Yaf_Application|NULL - an Yaf_Application instance, if no Yaf_Application initialized before, NULL will be returned.
@@ -143,7 +139,6 @@ final class Yaf_Application {
 	/**
 	 * Retrieve environ which was defined in yaf.environ which has a default value "product".
 	 *
-	 * @since v1.0.0
 	 * @link http://www.php.net/manual/en/yaf-application.environ.php
 	 *
 	 * @return string
@@ -153,7 +148,6 @@ final class Yaf_Application {
 	/**
 	 * Run a Bootstrap, all the methods defined in the Bootstrap and named with prefix "_init" will be called according to their declaration order, if the parameter bootstrap is not supplied, Yaf will look for a Bootstrap under application.directory.
 	 *
-	 * @since v1.0.0
 	 * @link http://www.php.net/manual/en/yaf-application.bootstrap.php
 	 *
 	 * @param Yaf_Bootstrap_Abstract $bootstrap - A Yaf_Bootstrap_Abstract instance
@@ -162,7 +156,6 @@ final class Yaf_Application {
 	public function bootstrap(Yaf_Bootstrap_Abstract $bootstrap = NULL){}
 
 	/**
-	 * @since v1.0.0
 	 * @link http://www.php.net/manual/en/yaf-application.getconfig.php
 	 *
 	 * @return Yaf_Config_Abstract
@@ -172,7 +165,6 @@ final class Yaf_Application {
 	/**
 	 * Get the modules list defined in config, if no one defined, there will always be a module named "Index".
 	 *
-	 * @since v1.0.0
 	 * @link http://www.php.net/manual/en/yaf-application.getmodules.php
 	 *
 	 * @return array
@@ -180,7 +172,6 @@ final class Yaf_Application {
 	public function getModules(){}
 
 	/**
-	 * @since v1.0.0
 	 * @link http://www.php.net/manual/en/yaf-application.getdispatcher.php
 	 *
 	 * @return Yaf_Dispatcher
@@ -190,7 +181,7 @@ final class Yaf_Application {
 	/**
 	 * Change the application directory
 	 *
-	 * @since v2.1.4
+	 * @since 2.1.4
 	 * @link http://www.php.net/manual/en/yaf-application.setappdirectory.php
 	 *
 	 * @param string $directory
@@ -200,7 +191,7 @@ final class Yaf_Application {
 
 	/**
 	 *
-	 * @since v2.1.4
+	 * @since 2.1.4
 	 * @link http://www.php.net/manual/en/yaf-application.getappdirectory.php
 	 *
 	 * @return string
@@ -209,7 +200,7 @@ final class Yaf_Application {
 
 	/**
 	 *
-	 * @since v2.1.2
+	 * @since 2.1.2
 	 * @link http://www.php.net/manual/en/yaf-application.getlasterrorno.php
 	 *
 	 * @return int
@@ -218,7 +209,7 @@ final class Yaf_Application {
 
 	/**
 	 *
-	 * @since v2.1.2
+	 * @since 2.1.2
 	 * @link http://www.php.net/manual/en/yaf-application.getlasterrormsg.php
 	 *
 	 * @return string
@@ -227,112 +218,318 @@ final class Yaf_Application {
 
 	/**
 	 *
-	 * @since v2.1.2
+	 * @since 2.1.2
 	 * @link http://www.php.net/manual/en/yaf-application.clearlasterror.php
 	 */
 	public function clearLastError(){}
 
 	/**
 	 *
-	 * @since v1.0.0
 	 * @link http://www.php.net/manual/en/yaf-application.destruct.php
 	 */
 	public function __destruct(){}
 
 	/**
 	 *
-	 * @since v1.0.0
 	 * @link http://www.php.net/manual/en/yaf-application.clone.php
 	 */
 	private function __clone(){}
 
 	/**
 	 *
-	 * @since v1.0.0
 	 * @link http://www.php.net/manual/en/yaf-application.sleep.php
 	 */
 	private function __sleep(){}
 
 	/**
 	 *
-	 * @since v1.0.0
 	 * @link http://www.php.net/manual/en/yaf-application.wakeup.php
 	 */
 	private function __wakeup(){}
 }
 
-abstract class Yaf_Bootstrap_Abstract {
+/**
+ * <p>Bootstrap is a mechanism used to do some initial config before a Application run.<br/><br/></p>
+ * <p>User may define their own Bootstrap class by inheriting <b>Yaf_Bootstrap_Abstract</b><br/><br/></p>
+ * <p>Any method declared in Bootstrap class with leading "_init", will be called by Yaf_Application::bootstrap() one by one according to their defined order<br/><br/></p>
+ *
+ * @link http://www.php.net/manual/en/class.yaf-bootstrap-abstract.php
+ */
+abstract class Yaf_Bootstrap_Abstract {}
 
-	/* constants */
-	/* properties */
-	/* methods */
-}
-
+/**
+ * <p><b>Yaf_Dispatcher</b> purpose is to initialize the request environment, route the incoming request, and then dispatch any discovered actions; it aggregates any responses and returns them when the process is complete.</p><br/>
+ * <p><b>Yaf_Dispatcher</b> also implements the Singleton pattern, meaning only a single instance of it may be available at any given time. This allows it to also act as a registry on which the other objects in the dispatch process may draw.</p>
+ *
+ * @link http://www.php.net/manual/en/class.yaf-dispatcher.php
+ */
 final class Yaf_Dispatcher {
 
-	/* constants */
-
-	/* properties */
-	protected $_router = NULL;
-	protected $_view = NULL;
-	protected $_request = NULL;
-	protected $_plugins = NULL;
-	protected static $_instance = NULL;
-	protected $_auto_render = "1";
+	/**
+	 * @var Yaf_Dispatcher
+	 */
+	protected static $_instance;
+	/**
+	 * @var Yaf_Router
+	 */
+	protected $_router;
+	/**
+	 * @var Yaf_View_Interface
+	 */
+	protected $_view;
+	/**
+	 * @var Yaf_Request_Abstract
+	 */
+	protected $_request;
+	/**
+	 * @var Yaf_Plugin_Abstract
+	 */
+	protected $_plugins;
+	/**
+	 * @var bool
+	 */
+	protected $_auto_render = true;
+	/**
+	 * @var string
+	 */
 	protected $_return_response = "";
+	/**
+	 * @var string
+	 */
 	protected $_instantly_flush = "";
-	protected $_default_module = NULL;
-	protected $_default_controller = NULL;
-	protected $_default_action = NULL;
+	/**
+	 * @var string
+	 */
+	protected $_default_module;
+	/**
+	 * @var string
+	 */
+	protected $_default_controller;
+	/**
+	 * @var string
+	 */
+	protected $_default_action;
 
-	/* methods */
+	/**
+	 * @link http://www.php.net/manual/en/yaf-dispatcher.construct.php
+	 */
 	private function __construct(){}
 
+	/**
+	 * @link http://www.php.net/manual/en/yaf-dispatcher.clone.php
+	 */
 	private function __clone(){}
 
+	/**
+	 * @link http://www.php.net/manual/en/yaf-dispatcher.sleep.php
+	 */
 	private function __sleep(){}
 
+	/**
+	 * @link http://www.php.net/manual/en/yaf-dispatcher.wakeup.php
+	 */
 	private function __wakeup(){}
 
+	/**
+	 * enable view rendering
+	 *
+	 * @link http://www.php.net/manual/en/yaf-dispatcher.enableview.php
+	 *
+	 * @return Yaf_Dispatcher
+	 */
 	public function enableView(){}
 
+	/**
+	 * <p>disable view engine, used in some app that user will output by himself</p><br/>
+	 * <b>Note:</b>
+	 * <p>you can simply return FALSE in a action to prevent the auto-rendering of that action</p>
+	 *
+	 * @link http://www.php.net/manual/en/yaf-dispatcher.disableview.php
+	 *
+	 * @return bool
+	 */
 	public function disableView(){}
 
-	public function initView($templates_dir, array $options = NULL){}
+	/**
+	 * Initialize view and return it
+	 *
+	 * @link http://www.php.net/manual/en/yaf-dispatcher.initview.php
+	 *
+	 * @param string $templates_dir
+	 * @param array $options
+	 * @return Yaf_View_Interface
+	 */
+	public function initView($templates_dir, array $options = array()){}
 
-	public function setView($view){}
+	/**
+	 * This method provides a solution for that if you want use a custom view engine instead of Yaf_View_Simple
+	 *
+	 * @link http://www.php.net/manual/en/yaf-dispatcher.setview.php
+	 *
+	 * @param Yaf_View_Interface $view - A Yaf_View_Interface instance
+	 * @return Yaf_Dispatcher
+	 */
+	public function setView(Yaf_View_Interface $view){}
 
-	public function setRequest($request){}
+	/**
+	 *
+	 * @link http://www.php.net/manual/en/yaf-dispatcher.setrequest.php
+	 *
+	 * @param Yaf_Request_Abstract $request
+	 * @return Yaf_Dispatcher
+	 */
+	public function setRequest(Yaf_Request_Abstract $request){}
 
+	/**
+	 * Retrieve the Yaf_Application instance. same as Yaf_Application::app().
+	 *
+	 * @link http://www.php.net/manual/en/yaf-dispatcher.getapplication.php
+	 * @return Yaf_Application
+	 */
 	public function getApplication(){}
 
+	/**
+	 * @link http://www.php.net/manual/en/yaf-dispatcher.getrouter.php
+	 *
+	 * @return Yaf_Router
+	 */
 	public function getRouter(){}
 
+	/**
+	 * @link http://www.php.net/manual/en/yaf-dispatcher.getrequest.php
+	 *
+	 * @return Yaf_Request_Abstract
+	 */
 	public function getRequest(){}
 
-	public function setErrorHandler($callback, $error_types){}
+	/**
+	 * <p>Set error handler for Yaf. when application.dispatcher.throwException is off, Yaf will trigger catch-able error while unexpected errors occurred.</p><br/>
+	 * <p>Thus, this error handler will be called while the error raise.</p>
+	 *
+	 * @link http://www.php.net/manual/en/yaf-dispatcher.seterrorhandler.php
+	 *
+	 * @param callable $callback - a callable callback
+	 * @param int $error_types - YAF_ERR_* constants mask
+	 *
+	 * @return Yaf_Dispatcher
+	 */
+	public function setErrorHandler(callable $callback, $error_types){}
 
+	/**
+	 * Change default module name
+	 *
+	 * @link http://www.php.net/manual/en/yaf-dispatcher.setdefaultmodule.php
+	 *
+	 * @param string $module
+	 * @return Yaf_Dispatcher
+	 */
 	public function setDefaultModule($module){}
 
+	/**
+	 * Change default controller name
+	 *
+	 * @link http://www.php.net/manual/en/yaf-dispatcher.setdefaultcontroller.php
+	 *
+	 * @param string $controller
+	 * @return Yaf_Dispatcher
+	 */
 	public function setDefaultController($controller){}
 
+	/**
+	 * Change default action name
+	 *
+	 * @link http://www.php.net/manual/en/yaf-dispatcher.setdefaultaction.php
+	 *
+	 * @param string $action
+	 * @return Yaf_Dispatcher
+	 */
 	public function setDefaultAction($action){}
 
+	/**
+	 * @link http://www.php.net/manual/en/yaf-dispatcher.returnresponse.php
+	 *
+	 * @param bool $flag
+	 * @return Yaf_Dispatcher
+	 */
 	public function returnResponse($flag){}
 
-	public function autoRender($flag){}
+	/**
+	 * <p>Yaf_Dispatcher will render automatically after dispatches an incoming request, you can prevent the rendering by calling this method with $flag TRUE</p><br/>
+	 * <b>Note:</b>
+	 * <p>you can simply return FALSE in a action to prevent the auto-rendering of that action</p>
+	 *
+	 * @link http://www.php.net/manual/en/yaf-dispatcher.autorender.php
+	 *
+	 * @param bool $flag - since 2.2.0, if this parameter is not given, then the current state will be set
+	 * @return Yaf_Dispatcher
+	 */
+	public function autoRender($flag = null){}
 
-	public function flushInstantly($flag){}
+	/**
+	 * Switch on/off the instant flushing
+	 *
+	 * @link http://www.php.net/manual/en/yaf-dispatcher.flushinstantly.php
+	 *
+	 * @param bool $flag - since 2.2.0, if this parameter is not given, then the current state will be set
+	 * @return Yaf_Dispatcher
+	 */
+	public function flushInstantly($flag = null){}
 
+	/**
+	 * @link http://www.php.net/manual/en/yaf-dispatcher.getinstance.php
+	 *
+	 * @return Yaf_Dispatcher
+	 */
 	public static function getInstance(){}
 
-	public function dispatch($request){}
+	/**
+	 * <p>This method does the heavy work of the Yaf_Dispatcher. It take a request object.</p><br/>
+	 * <p>The dispatch process has three distinct events:</p>
+	 * <ul>
+	 * <li>Routing</li>
+	 * <li>Dispatching</li>
+	 * <li>Response</li>
+	 * </ul>
+	 * <p>Routing takes place exactly once, using the values in the request object when dispatch() is called. Dispatching takes place in a loop; a request may either indicate multiple actions to dispatch, or the controller or a plugin may reset the request object to force additional actions to dispatch(see Yaf_Plugin_Abstract. When all is done, the Yaf_Dispatcher returns a response.</p>
+	 *
+	 * @link http://www.php.net/manual/en/yaf-dispatcher.dispatch.php
+	 *
+	 * @param Yaf_Request_Abstract $request
+	 * @return Yaf_Response_Abstract
+	 */
+	public function dispatch(Yaf_Request_Abstract $request){}
 
-	public function throwException($flag = NULL){}
+	/**
+	 * <p>Switch on/off exception throwing while unexpected error occurring. When this is on, Yaf will throwing exceptions instead of triggering catchable errors.</p><br/>
+	 * <p>You can also use application.dispatcher.throwException to achieve the same purpose.</p>
+	 *
+	 * @link http://www.php.net/manual/en/yaf-dispatcher.throwexception.php
+	 *
+	 * @param bool $flag
+	 * @return Yaf_Dispatcher
+	 */
+	public function throwException($flag = null){}
 
-	public function catchException($flag = NULL){}
+	/**
+	 * <p>While the application.dispatcher.throwException is On(you can also calling to <b>Yaf_Dispatcher::throwException(TRUE)</b> to enable it), Yaf will throw Exception whe error occurs instead of trigger error.</p><br/>
+	 * <p>then if you enable <b>Yaf_Dispatcher::catchException()</b>(also can enabled by set application.dispatcher.catchException), all uncaught Exceptions will be caught by ErrorController::error if you have defined one.</p>
+	 *
+	 * @link http://www.php.net/manual/en/yaf-dispatcher.catchexception.php
+	 *
+	 * @param bool $flag
+	 * @return Yaf_Dispatcher
+	 */
+	public function catchException($flag = null){}
 
-	public function registerPlugin($plugin){}
+	/**
+	 * Register a plugin(see Yaf_Plugin_Abstract). Generally, we register plugins in Bootstrap(see Yaf_Bootstrap_Abstract).
+	 *
+	 * @link http://www.php.net/manual/en/yaf-dispatcher.registerplugin.php
+	 *
+	 * @param Yaf_Plugin_Abstract $plugin
+	 * @return Yaf_Dispatcher
+	 */
+	public function registerPlugin(Yaf_Plugin_Abstract $plugin){}
 }
 
 final class Yaf_Loader {
@@ -972,6 +1169,63 @@ final class Yaf_Config_Simple extends Yaf_Config_Abstract implements Iterator, T
 	public function offsetExists($name){}
 
 	public function offsetSet($name, $value){}
+}
+
+/**
+ * Yaf provides a ability for developers to use custom view engine instead of build-in engine which is Yaf_View_Simple. There is a example to explain how to do this, please see Yaf_Dispatcher::setView()
+ *
+ * @link http://www.php.net/manual/en/class.yaf-view-interface.php
+ */
+interface Yaf_View_Interface {
+
+	/**
+	 * Assign values to View engine, then the value can access directly by name in template.
+	 *
+	 * @link http://www.php.net/manual/en/yaf-view-interface.assign.php
+	 *
+	 * @param string $name
+	 * @param string $value
+	 * @return bool
+	 */
+	function assign($name, $value = '');
+
+	/**
+	 * Render a template and output the result immediately.
+	 *
+	 * @link http://www.php.net/manual/en/yaf-view-interface.display.php
+	 *
+	 * @param string $tpl
+	 * @param array $tpl_vars
+	 * @return bool
+	 */
+	function display($tpl, array $tpl_vars = array());
+
+	/**
+	 * @link http://www.php.net/manual/en/yaf-view-interface.getscriptpath.php
+	 *
+	 * @return string
+	 */
+	function getScriptPath();
+
+	/**
+	 * Render a template and return the result.
+	 *
+	 * @link http://www.php.net/manual/en/yaf-view-interface.render.php
+	 *
+	 * @param string $tpl
+	 * @param array $tpl_vars
+	 * @return string
+	 */
+	function render($tpl, array $tpl_vars = array());
+
+	/**
+	 * Set the templates base directory, this is usually called by Yaf_Dispatcher
+	 *
+	 * @link http://www.php.net/manual/en/yaf-view-interface.setscriptpath.php
+	 *
+	 * @param string $template_dir - An absolute path to the template directory, by default, Yaf_Dispatcher use application.directory . "/views" as this parameter.
+	 */
+	function setScriptPath($template_dir);
 }
 
 final class Yaf_View_Simple implements Yaf_View_Interface {
