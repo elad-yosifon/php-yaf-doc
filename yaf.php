@@ -532,7 +532,7 @@ final class Yaf_Dispatcher {
 	public function registerPlugin(Yaf_Plugin_Abstract $plugin){}
 }
 
-final class Yaf_Loader {
+class Yaf_Loader {
 
 	/* constants */
 
@@ -742,7 +742,7 @@ class Yaf_Request_Http extends Yaf_Request_Abstract {
 	public function setRouted($flag = NULL){}
 }
 
-final class Yaf_Request_Simple extends Yaf_Request_Abstract {
+class Yaf_Request_Simple extends Yaf_Request_Abstract {
 
 	/* constants */
 	const SCHEME_HTTP = 'http';
@@ -980,31 +980,31 @@ abstract class Yaf_Controller_Abstract {
 	protected $_view = NULL;
 
 	/* methods */
-	final protected function render($tpl, array $parameters = NULL){}
+	protected function render($tpl, array $parameters = NULL){}
 
-	final protected function display($tpl, array $parameters = NULL){}
+	protected function display($tpl, array $parameters = NULL){}
 
-	final public function getRequest(){}
+	public function getRequest(){}
 
-	final public function getResponse(){}
+	public function getResponse(){}
 
-	final public function getModuleName(){}
+	public function getModuleName(){}
 
-	final public function getView(){}
+	public function getView(){}
 
-	final public function initView(array $options = NULL){}
+	public function initView(array $options = NULL){}
 
-	final public function setViewpath($view_directory){}
+	public function setViewpath($view_directory){}
 
-	final public function getViewpath(){}
+	public function getViewpath(){}
 
-	final public function forward($module, $controller = NULL, $action = NULL, array $paramters = NULL){}
+	public function forward($module, $controller = NULL, $action = NULL, array $paramters = NULL){}
 
-	final public function redirect($url){}
+	public function redirect($url){}
 
-	final public function getInvokeArgs(){}
+	public function getInvokeArgs(){}
 
-	final public function getInvokeArg($name){}
+	public function getInvokeArg($name){}
 
 	final public function __construct(){}
 
@@ -1030,144 +1030,235 @@ abstract class Yaf_Action_Abstract extends Yaf_Controller_Abstract {
 
 	public function getController(){}
 
-	final protected function render($tpl, array $parameters = NULL){}
-
-	final protected function display($tpl, array $parameters = NULL){}
-
-	final public function getRequest(){}
-
-	final public function getResponse(){}
-
-	final public function getModuleName(){}
-
-	final public function getView(){}
-
-	final public function initView(array $options = NULL){}
-
-	final public function setViewpath($view_directory){}
-
-	final public function getViewpath(){}
-
-	final public function forward($module, $controller = NULL, $action = NULL, array $paramters = NULL){}
-
-	final public function redirect($url){}
-
-	final public function getInvokeArgs(){}
-
-	final public function getInvokeArg($name){}
-
-	final public function __construct(){}
-
-	final private function __clone(){}
 }
 
+/**
+ * @link http://www.php.net/manual/en/class.yaf-config-abstract.php
+ */
 abstract class Yaf_Config_Abstract {
 
-	/* constants */
-
-	/* properties */
 	protected $_config = NULL;
-	protected $_readonly = "1";
+	/**
+	 * @var bool
+	 */
+	protected $_readonly = true;
 
-	/* methods */
-	abstract public function get();
+	/**
+	 * @link http://www.php.net/manual/en/yaf-config-abstract.get.php
+	 *
+	 * @param string $name
+	 * @return mixed
+	 */
+	abstract public function get($name = null);
 
-	abstract public function set();
+	/**
+	 * @link http://www.php.net/manual/en/yaf-config-abstract.set.php
+	 *
+	 * @param string $name
+	 * @param mixed $value
+	 * @return Yaf_Config_Abstract
+	 */
+	abstract public function set($name, $value);
 
+	/**
+	 * @link http://www.php.net/manual/en/yaf-config-abstract.readonly.php
+	 *
+	 * @return bool
+	 */
 	abstract public function readonly();
 
+	/**
+	 * @link http://www.php.net/manual/en/yaf-config-abstract.toarray.php
+	 *
+	 * @return array
+	 */
 	abstract public function toArray();
 }
 
-final class Yaf_Config_Ini extends Yaf_Config_Abstract implements Iterator, Traversable, ArrayAccess, Countable {
+/**
+ * <p>Yaf_Config_Ini enables developers to store configuration data in a familiar INI format and read them in the application by using nested object property syntax. The INI format is specialized to provide both the ability to have a hierarchy of configuration data keys and inheritance between configuration data sections. Configuration data hierarchies are supported by separating the keys with the dot or period character ("."). A section may extend or inherit from another section by following the section name with a colon character (":") and the name of the section from which data are to be inherited.</p><br/>
+ * <b>Note:</b>
+ * <p>Yaf_Config_Ini utilizes the » parse_ini_file() PHP function. Please review this documentation to be aware of its specific behaviors, which propagate to Yaf_Config_Ini, such as how the special values of "TRUE", "FALSE", "yes", "no", and "NULL" are handled.</p>
+ * @link http://www.php.net/manual/en/class.yaf-config-ini.php
+ */
+class Yaf_Config_Ini extends Yaf_Config_Abstract implements Iterator, Traversable, ArrayAccess, Countable {
 
-	/* constants */
-
-	/* properties */
-	protected $_config = NULL;
-	protected $_readonly = "1";
-
-	/* methods */
-	public function __construct($config_file, $section = NULL){}
-
-	public function __isset($name){}
-
-	public function get($name = NULL){}
-
-	public function set($name, $value){}
-
-	public function count(){}
-
-	public function rewind(){}
-
-	public function current(){}
-
-	public function next(){}
-
-	public function valid(){}
-
-	public function key(){}
-
-	public function toArray(){}
-
-	public function readonly(){}
-
-	public function offsetUnset($name){}
-
-	public function offsetGet($name){}
-
-	public function offsetExists($name){}
-
-	public function offsetSet($name, $value){}
-
+	/**
+	 * @see Yaf_Config_Abstract::get
+	 */
 	public function __get($name = NULL){}
 
+	/**
+	 * @see Yaf_Config_Abstract::set
+	 */
 	public function __set($name, $value){}
+
+	/**
+	 * @see Yaf_Config_Abstract::get
+	 */
+	public function get($name = null){}
+
+	/**
+	 * @see Yaf_Config_Abstract::set
+	 */
+	public function set($name, $value){}
+
+	/**
+	 * @see Yaf_Config_Abstract::toArray
+	 */
+	public function toArray(){}
+
+	/**
+	 * @see Yaf_Config_Abstract::readonly
+	 */
+	public function readonly(){}
+
+	/**
+	 * @link http://www.php.net/manual/en/yaf-config-ini.construct.php
+	 *
+	 * @param string $config_file - path to an INI configure file
+	 * @param string $section - which section in that INI file you want to be parsed
+	 */
+	public function __construct($config_file, $section = NULL){}
+
+	/**
+	 * @link http://www.php.net/manual/en/yaf-config-ini.isset.php
+	 * @param string $name
+	 */
+	public function __isset($name){}
+
+	/**
+	 * @see Countable::count
+	 */
+	public function count(){}
+
+	/**
+	 * @see Iterator::rewind
+	 */
+	public function rewind(){}
+	/**
+	 * @see Iterator::current
+	 */
+	public function current(){}
+	/**
+	 * @see Iterator::next
+	 */
+	public function next(){}
+	/**
+	 * @see Iterator::valid
+	 */
+	public function valid(){}
+	/**
+	 * @see Iterator::key
+	 */
+	public function key(){}
+	/**
+	 * @see ArrayAccess::offsetUnset
+	 */
+	public function offsetUnset($name){}
+	/**
+	 * @see ArrayAccess::offsetGet
+	 */
+	public function offsetGet($name){}
+	/**
+	 * @see ArrayAccess::offsetExists
+	 */
+	public function offsetExists($name){}
+	/**
+	 * @see ArrayAccess::offsetSet
+	 */
+	public function offsetSet($name, $value){}
 }
 
-final class Yaf_Config_Simple extends Yaf_Config_Abstract implements Iterator, Traversable, ArrayAccess, Countable {
+/**
+ * @link http://www.php.net/manual/en/class.yaf-config-simple.php
+ */
+class Yaf_Config_Simple extends Yaf_Config_Abstract implements Iterator, Traversable, ArrayAccess, Countable {
 
-	/* constants */
-
-	/* properties */
-	protected $_config = NULL;
-	protected $_readonly = "";
-
-	/* methods */
-	public function __construct($config_file, $section = NULL){}
-
-	public function __isset($name){}
-
-	public function get($name = NULL){}
-
-	public function set($name, $value){}
-
-	public function count(){}
-
-	public function offsetUnset($name){}
-
-	public function rewind(){}
-
-	public function current(){}
-
-	public function next(){}
-
-	public function valid(){}
-
-	public function key(){}
-
-	public function readonly(){}
-
-	public function toArray(){}
-
-	public function __set($name, $value){}
-
+	/**
+	 * @see Yaf_Config_Abstract::get
+	 */
 	public function __get($name = NULL){}
 
+	/**
+	 * @see Yaf_Config_Abstract::set
+	 */
+	public function __set($name, $value){}
+
+	/**
+	 * @see Yaf_Config_Abstract::get
+	 */
+	public function get($name = null){}
+
+	/**
+	 * @see Yaf_Config_Abstract::set
+	 */
+	public function set($name, $value){}
+
+	/**
+	 * @see Yaf_Config_Abstract::toArray
+	 */
+	public function toArray(){}
+
+	/**
+	 * @see Yaf_Config_Abstract::readonly
+	 */
+	public function readonly(){}
+
+	/**
+	 * @link http://www.php.net/manual/en/yaf-config-simple.construct.php
+	 *
+	 * @param string $config_file - path to an INI configure file
+	 * @param string $section - which section in that INI file you want to be parsed
+	 */
+	public function __construct($config_file, $section = NULL){}
+
+	/**
+	 * @link http://www.php.net/manual/en/yaf-config-simple.isset.php
+	 * @param string $name
+	 */
+	public function __isset($name){}
+
+	/**
+	 * @see Countable::count
+	 */
+	public function count(){}
+
+	/**
+	 * @see Iterator::rewind
+	 */
+	public function rewind(){}
+	/**
+	 * @see Iterator::current
+	 */
+	public function current(){}
+	/**
+	 * @see Iterator::next
+	 */
+	public function next(){}
+	/**
+	 * @see Iterator::valid
+	 */
+	public function valid(){}
+	/**
+	 * @see Iterator::key
+	 */
+	public function key(){}
+	/**
+	 * @see ArrayAccess::offsetUnset
+	 */
+	public function offsetUnset($name){}
+	/**
+	 * @see ArrayAccess::offsetGet
+	 */
 	public function offsetGet($name){}
-
+	/**
+	 * @see ArrayAccess::offsetExists
+	 */
 	public function offsetExists($name){}
-
+	/**
+	 * @see ArrayAccess::offsetSet
+	 */
 	public function offsetSet($name, $value){}
 }
 
@@ -1183,11 +1274,11 @@ interface Yaf_View_Interface {
 	 *
 	 * @link http://www.php.net/manual/en/yaf-view-interface.assign.php
 	 *
-	 * @param string $name
-	 * @param string $value
+	 * @param string|array $name
+	 * @param mixed $value
 	 * @return bool
 	 */
-	function assign($name, $value = '');
+	function assign($name, $value);
 
 	/**
 	 * Render a template and output the result immediately.
@@ -1198,7 +1289,7 @@ interface Yaf_View_Interface {
 	 * @param array $tpl_vars
 	 * @return bool
 	 */
-	function display($tpl, array $tpl_vars = array());
+	function display($tpl, array $tpl_vars = null);
 
 	/**
 	 * @link http://www.php.net/manual/en/yaf-view-interface.getscriptpath.php
@@ -1216,7 +1307,7 @@ interface Yaf_View_Interface {
 	 * @param array $tpl_vars
 	 * @return string
 	 */
-	function render($tpl, array $tpl_vars = array());
+	function render($tpl, array $tpl_vars = null);
 
 	/**
 	 * Set the templates base directory, this is usually called by Yaf_Dispatcher
@@ -1228,30 +1319,61 @@ interface Yaf_View_Interface {
 	function setScriptPath($template_dir);
 }
 
-final class Yaf_View_Simple implements Yaf_View_Interface {
+/**
+ * <b>Yaf_View_Simple</b> is the built-in template engine in Yaf, it is a simple but fast template engine, and only support PHP script template.
+ * @link http://www.php.net/manual/en/class.yaf-view-simple.php
+ */
+class Yaf_View_Simple implements Yaf_View_Interface {
 
-	/* constants */
+	/**
+	 * @var string
+	 */
+	protected $_tpl_dir;
+	/**
+	 * @var array
+	 */
+	protected $_tpl_vars;
+	/**
+	 * @var array
+	 */
+	protected $_options;
 
-	/* properties */
-	protected $_tpl_vars = NULL;
-	protected $_tpl_dir = NULL;
-	protected $_options = NULL;
+	/**
+	 * @link http://www.php.net/manual/en/yaf-view-simple.construct.php
+	 *
+	 * @param string $template_dir - The base directory of the templates, by default, it is APPLICATOIN . "/views" for Yaf.
+	 * @param array $options - <p>
+	 * Options for the engine, as of Yaf 2.1.13, you can use short tag
+	 * "<?=$var?>" in your template(regardless of "short_open_tag"),
+	 * so comes a option named "short_tag",  you can switch this off
+	 * to prevent use short_tag in template.
+	 */
+	final public function __construct($template_dir, array $options = NULL){}
 
-	/* methods */
-	public function __construct($tempalte_dir, array $options = NULL){}
-
+	/**
+	 * @link http://www.php.net/manual/en/yaf-view-simple.isset.php
+	 *
+	 * @param string $name
+	 */
 	public function __isset($name){}
 
-	public function get($name = NULL){}
-
+	/**
+	 * assign variable to view engine
+	 *
+	 * @link http://www.php.net/manual/en/yaf-view-simple.assign.php
+	 *
+	 * @param string|array $name - A string or an array.<br/>if is string, then the next argument $value is required.
+	 * @param mixed $value - mixed value
+	 * @return bool
+	 */
 	public function assign($name, $value = NULL){}
 
-	public function render($tpl, $tpl_vars = NULL){}
+	public function render($tpl,array $tpl_vars = NULL){}
 
 	//todo: change to eval
-	public function eval1($tpl_str, $vars = NULL){}
+	public function _eval($tpl_str, $vars = NULL){}
 
-	public function display($tpl, $tpl_vars = NULL){}
+	public function display($tpl, array $tpl_vars = NULL){}
 
 	public function assignRef($name, &$value){}
 
@@ -1266,7 +1388,28 @@ final class Yaf_View_Simple implements Yaf_View_Interface {
 	public function __set($name, $value = NULL){}
 }
 
-final class Yaf_Router {
+/**
+ * <b>Yaf_Route_Interface</b> used for developer defined their custom route.
+ *
+ * @link http://www.php.net/manual/en/class.yaf-route-interface.php
+ */
+interface Yaf_Route_Interface {
+
+	/**
+	 * <p><b>Yaf_Route_Interface::route()</b> is the only method that a custom route should implement.</p><br/>
+	 * <p>if this method return TRUE, then the route process will be end. otherwise, Yaf_Router will call next route in the route stack to route request.</p><br/>
+	 * <p>This method would set the route result to the parameter request, by calling Yaf_Request_Abstract::setControllerName(), Yaf_Request_Abstract::setActionName() and Yaf_Request_Abstract::setModuleName().</p><br/>
+	 * <p>This method should also call Yaf_Request_Abstract::setRouted() to make the request routed at last.</p>
+	 *
+	 * @link http://www.php.net/manual/en/yaf-route-interface.route.php
+	 *
+	 * @param Yaf_Request_Abstract $request
+	 * @return bool
+	 */
+	function route(Yaf_Request_Abstract $request);
+}
+
+class Yaf_Router {
 
 	/* constants */
 
@@ -1290,7 +1433,7 @@ final class Yaf_Router {
 	public function getCurrentRoute(){}
 }
 
-class Yaf_Route_Static implements Yaf_Router {
+class Yaf_Route_Static implements Yaf_Route_Interface {
 
 	/* constants */
 
@@ -1299,7 +1442,7 @@ class Yaf_Route_Static implements Yaf_Router {
 	/* methods */
 	public function match($uri){}
 
-	public function route($request){}
+	public function route(Yaf_Request_Abstract $request){}
 
 	public function __construct(){}
 
@@ -1314,7 +1457,7 @@ class Yaf_Route_Static implements Yaf_Router {
 	public function getCurrentRoute(){}
 }
 
-final class Yaf_Route_Simple implements Yaf_Route_Interface {
+final class Yaf_Route_Simple implements Yaf_Route {
 
 	/* constants */
 
@@ -1326,7 +1469,7 @@ final class Yaf_Route_Simple implements Yaf_Route_Interface {
 	/* methods */
 	public function __construct($module_name, $controller_name, $action_name){}
 
-	public function route($request){}
+	public function route(Yaf_Request_Abstract $request){}
 }
 
 final class Yaf_Route_Supervar implements Yaf_Route_Interface {
@@ -1339,10 +1482,10 @@ final class Yaf_Route_Supervar implements Yaf_Route_Interface {
 	/* methods */
 	public function __construct($supervar_name){}
 
-	public function route($request){}
+	public function route(Yaf_Request_Abstract $request){}
 }
 
-final class Yaf_Route_Rewrite extends Yaf_Route_Interface implements Yaf_Route_Interface {
+final class Yaf_Route_Rewrite extends Yaf_Router implements Yaf_Route_Interface {
 
 	/* constants */
 
@@ -1354,10 +1497,10 @@ final class Yaf_Route_Rewrite extends Yaf_Route_Interface implements Yaf_Route_I
 	/* methods */
 	public function __construct($match, array $route, array $verify = NULL){}
 
-	public function route($request){}
+	public function route(Yaf_Request_Abstract $request){}
 }
 
-final class Yaf_Route_Regex extends Yaf_Route_Interface implements Yaf_Route_Interface {
+final class Yaf_Route_Regex extends Yaf_Router implements Yaf_Route_Interface {
 
 	/* constants */
 
@@ -1370,7 +1513,7 @@ final class Yaf_Route_Regex extends Yaf_Route_Interface implements Yaf_Route_Int
 	/* methods */
 	public function __construct($match, array $route, array $map = NULL, array $verify = NULL){}
 
-	public function route($request){}
+	public function route(Yaf_Request_Abstract $request){}
 }
 
 final class Yaf_Route_Map implements Yaf_Route_Interface {
@@ -1384,7 +1527,7 @@ final class Yaf_Route_Map implements Yaf_Route_Interface {
 	/* methods */
 	public function __construct($controller_prefer = NULL, $delimiter = NULL){}
 
-	public function route($request){}
+	public function route(Yaf_Request_Abstract $request){}
 }
 
 abstract class Yaf_Plugin_Abstract {
@@ -1490,333 +1633,14 @@ final class Yaf_Session implements Iterator, Traversable, ArrayAccess, Countable
 	public function __unset($name){}
 }
 
-class Yaf_Exception extends Exception {
-
-	/* constants */
-
-	/* properties */
-	protected $message = NULL;
-	protected $code = "0";
-	protected $file = NULL;
-	protected $line = NULL;
-	protected $previous = NULL;
-
-	/* methods */
-	public function __construct(){}
-
-	public function getPrevious(){}
-
-	final private function __clone(){}
-
-	final public function getMessage(){}
-
-	final public function getCode(){}
-
-	final public function getFile(){}
-
-	final public function getLine(){}
-
-	final public function getTrace(){}
-
-	final public function getTraceAsString(){}
-
-	public function __toString(){}
-}
-
-class Yaf_Exception_StartupError extends Yaf_Exception {
-
-	/* constants */
-
-	/* properties */
-	protected $message = NULL;
-	protected $code = "0";
-	protected $file = NULL;
-	protected $line = NULL;
-	protected $previous = NULL;
-
-	/* methods */
-	public function __construct(){}
-
-	public function getPrevious(){}
-
-	final private function __clone(){}
-
-	final public function getMessage(){}
-
-	final public function getCode(){}
-
-	final public function getFile(){}
-
-	final public function getLine(){}
-
-	final public function getTrace(){}
-
-	final public function getTraceAsString(){}
-
-	public function __toString(){}
-}
-
-class Yaf_Exception_RouterFailed extends Yaf_Exception {
-
-	/* constants */
-
-	/* properties */
-	protected $message = NULL;
-	protected $code = "0";
-	protected $file = NULL;
-	protected $line = NULL;
-	protected $previous = NULL;
-
-	/* methods */
-	public function __construct(){}
-
-	public function getPrevious(){}
-
-	final private function __clone(){}
-
-	final public function getMessage(){}
-
-	final public function getCode(){}
-
-	final public function getFile(){}
-
-	final public function getLine(){}
-
-	final public function getTrace(){}
-
-	final public function getTraceAsString(){}
-
-	public function __toString(){}
-}
-
-class Yaf_Exception_DispatchFailed extends Yaf_Exception {
-
-	/* constants */
-
-	/* properties */
-	protected $message = NULL;
-	protected $code = "0";
-	protected $file = NULL;
-	protected $line = NULL;
-	protected $previous = NULL;
-
-	/* methods */
-	public function __construct(){}
-
-	public function getPrevious(){}
-
-	final private function __clone(){}
-
-	final public function getMessage(){}
-
-	final public function getCode(){}
-
-	final public function getFile(){}
-
-	final public function getLine(){}
-
-	final public function getTrace(){}
-
-	final public function getTraceAsString(){}
-
-	public function __toString(){}
-}
-
-class Yaf_Exception_LoadFailed extends Yaf_Exception {
-
-	/* constants */
-
-	/* properties */
-	protected $message = NULL;
-	protected $code = "0";
-	protected $file = NULL;
-	protected $line = NULL;
-	protected $previous = NULL;
-
-	/* methods */
-	public function __construct(){}
-
-	public function getPrevious(){}
-
-	final private function __clone(){}
-
-	final public function getMessage(){}
-
-	final public function getCode(){}
-
-	final public function getFile(){}
-
-	final public function getLine(){}
-
-	final public function getTrace(){}
-
-	final public function getTraceAsString(){}
-
-	public function __toString(){}
-}
-
-class Yaf_Exception_LoadFailed_Module extends Yaf_Exception_LoadFailed {
-
-	/* constants */
-
-	/* properties */
-	protected $message = NULL;
-	protected $code = "0";
-	protected $file = NULL;
-	protected $line = NULL;
-	protected $previous = NULL;
-
-	/* methods */
-	public function __construct(){}
-
-	public function getPrevious(){}
-
-	final private function __clone(){}
-
-	final public function getMessage(){}
-
-	final public function getCode(){}
-
-	final public function getFile(){}
-
-	final public function getLine(){}
-
-	final public function getTrace(){}
-
-	final public function getTraceAsString(){}
-
-	public function __toString(){}
-}
-
-class Yaf_Exception_LoadFailed_Controller extends Yaf_Exception_LoadFailed {
-
-	/* constants */
-
-	/* properties */
-	protected $message = NULL;
-	protected $code = "0";
-	protected $file = NULL;
-	protected $line = NULL;
-	protected $previous = NULL;
-
-	/* methods */
-	public function __construct(){}
-
-	public function getPrevious(){}
-
-	final private function __clone(){}
-
-	final public function getMessage(){}
-
-	final public function getCode(){}
-
-	final public function getFile(){}
-
-	final public function getLine(){}
-
-	final public function getTrace(){}
-
-	final public function getTraceAsString(){}
-
-	public function __toString(){}
-}
-
-class Yaf_Exception_LoadFailed_Action extends Yaf_Exception_LoadFailed {
-
-	/* constants */
-
-	/* properties */
-	protected $message = NULL;
-	protected $code = "0";
-	protected $file = NULL;
-	protected $line = NULL;
-	protected $previous = NULL;
-
-	/* methods */
-	public function __construct(){}
-
-	public function getPrevious(){}
-
-	final private function __clone(){}
-
-	final public function getMessage(){}
-
-	final public function getCode(){}
-
-	final public function getFile(){}
-
-	final public function getLine(){}
-
-	final public function getTrace(){}
-
-	final public function getTraceAsString(){}
-
-	public function __toString(){}
-}
-
-class Yaf_Exception_LoadFailed_View extends Yaf_Exception_LoadFailed {
-
-	/* constants */
-
-	/* properties */
-	protected $message = NULL;
-	protected $code = "0";
-	protected $file = NULL;
-	protected $line = NULL;
-	protected $previous = NULL;
-
-	/* methods */
-	public function __construct(){}
-
-	public function getPrevious(){}
-
-	final private function __clone(){}
-
-	final public function getMessage(){}
-
-	final public function getCode(){}
-
-	final public function getFile(){}
-
-	final public function getLine(){}
-
-	final public function getTrace(){}
-
-	final public function getTraceAsString(){}
-
-	public function __toString(){}
-}
-
-class Yaf_Exception_TypeError extends Yaf_Exception {
-
-	/* constants */
-
-	/* properties */
-	protected $message = NULL;
-	protected $code = "0";
-	protected $file = NULL;
-	protected $line = NULL;
-	protected $previous = NULL;
-
-	/* methods */
-	public function __construct(){}
-
-	public function getPrevious(){}
-
-	final private function __clone(){}
-
-	final public function getMessage(){}
-
-	final public function getCode(){}
-
-	final public function getFile(){}
-
-	final public function getLine(){}
-
-	final public function getTrace(){}
-
-	final public function getTraceAsString(){}
-
-	public function __toString(){}
-}
+class Yaf_Exception extends Exception {}
+class Yaf_Exception_StartupError extends Yaf_Exception {}
+class Yaf_Exception_RouterFailed extends Yaf_Exception {}
+class Yaf_Exception_DispatchFailed extends Yaf_Exception {}
+class Yaf_Exception_LoadFailed extends Yaf_Exception {}
+class Yaf_Exception_LoadFailed_Module extends Yaf_Exception_LoadFailed {}
+class Yaf_Exception_LoadFailed_Controller extends Yaf_Exception_LoadFailed {}
+class Yaf_Exception_LoadFailed_Action extends Yaf_Exception_LoadFailed {}
+class Yaf_Exception_LoadFailed_View extends Yaf_Exception_LoadFailed {}
+class Yaf_Exception_TypeError extends Yaf_Exception {}
 
