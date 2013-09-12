@@ -602,6 +602,12 @@ abstract class Yaf_Request_Abstract {
 
 	public function isCli(){}
 
+	/**
+	 *
+	 * @link http://www.php.net/manual/en/yaf-request-abstract.isxmlhttprequest.php
+	 *
+	 * @return bool false
+	 */
 	public function isXmlHttpRequest(){}
 
 	public function getServer($name, $default = NULL){}
@@ -610,8 +616,22 @@ abstract class Yaf_Request_Abstract {
 
 	public function setParam($name, $value = NULL){}
 
+	/**
+	 *
+	 * @link http://www.php.net/manual/en/yaf-request-abstract.getparam.php
+	 *
+	 * @param string $name
+	 * @param string $default
+	 * @return string
+	 */
 	public function getParam($name, $default = NULL){}
 
+	/**
+	 *
+	 * @link http://www.php.net/manual/en/yaf-request-abstract.getparams.php
+	 *
+	 * @return string[]
+	 */
 	public function getParams(){}
 
 	public function getException(){}
@@ -649,191 +669,203 @@ abstract class Yaf_Request_Abstract {
 	public function setRouted($flag = NULL){}
 }
 
+/**
+ * @link http://www.php.net/manual/en/class.yaf-request-http.php
+ */
 class Yaf_Request_Http extends Yaf_Request_Abstract {
 
-	/* constants */
+	/**
+	 * Retrieve $_GET variable
+	 *
+	 * @link http://www.php.net/manual/en/yaf-request-http.getquery.php
+	 *
+	 * @param string $name [optional] the variable name, if not provided returns all
+	 * @param string $default [optional] if this parameter is provide, this will be returned if the variable can not be found
+	 *
+	 * @return mixed
+	 */
+	public function getQuery($name = null , $default = null ){}
 
-	/* properties */
-	public $module = NULL;
-	public $controller = NULL;
-	public $action = NULL;
-	public $method = NULL;
-	protected $params = NULL;
-	protected $language = NULL;
-	protected $_exception = NULL;
-	protected $_base_uri = "";
-	protected $uri = "";
-	protected $dispatched = "";
-	protected $routed = "";
+	/**
+	 * Retrieve $_REQUEST variable
+	 *
+	 * @link http://www.php.net/manual/en/yaf-request-http.getrequest.php
+	 *
+	 * @param string $name [optional] the variable name, if not provided returns all
+	 * @param string $default [optional] if this parameter is provide, this will be returned if the variable can not be found
+	 *
+	 * @return mixed
+	 */
+	public function getRequest($name = null , $default = null ){}
 
-	/* methods */
-	public function getQuery(){}
+	/**
+	 * Retrieve $_POST variable
+	 *
+	 * @link http://www.php.net/manual/en/yaf-request-http.getpost.php
+	 *
+	 * @param string $name [optional] the variable name, if not provided returns all
+	 * @param string $default [optional] if this parameter is provide, this will be returned if the variable can not be found
+	 *
+	 * @return mixed
+	 */
+	public function getPost($name = null , $default = null ){}
 
-	private function __clone(){}
+	/**
+	 * Retrieve $_Cookie variable
+	 *
+	 * @link http://www.php.net/manual/en/yaf-request-http.getcookie.php
+	 *
+	 * @param string $name [optional] the variable name, if not provided returns all
+	 * @param string $default [optional] if this parameter is provide, this will be returned if the variable can not be found
+	 *
+	 * @return mixed
+	 */
+	public function getCookie($name = null , $default = null ){}
 
-	public function getRequest(){}
+	/**
+	 * @param mixed $name
+	 * @param null $default
+	 *
+	 * @return array
+	 */
+	public function getFiles($name = null , $default = null){}
 
-	public function getPost(){}
+	/**
+	 * Retrieve variable from client, this method will search the name in $_REQUEST params, if the name is not found, then will search in $_POST, $_GET, $_COOKIE, $_SERVER
+	 *
+	 * @link http://www.php.net/manual/en/yaf-request-http.get.php
+	 *
+	 * @param string $name the variable name
+	 * @param string $default [optional] if this parameter is provide, this will be returned if the variable can not be found
+	 *
+	 * @return mixed
+	 */
+	public function get($name , $default = null){}
 
-	public function getCookie(){}
-
-	public function getFiles(){}
-
-	public function get(){}
-
+	/**
+	 * Check the request whether it is a Ajax Request
+	 *
+	 * <br/>
+	 * <b>Note:</b>
+	 * <p>
+	 * This method depends on the request header: HTTP_X_REQUESTED_WITH, some Javascript library doesn't set this header while doing Ajax request
+	 * </p>
+	 * @link http://www.php.net/manual/en/yaf-request-http.isxmlhttprequest.php
+	 *
+	 * @return bool
+	 */
 	public function isXmlHttpRequest(){}
 
+	/**
+	 * @link http://www.php.net/manual/en/yaf-request-http.construct.php
+	 * @todo: document
+	 */
 	public function __construct(){}
 
-	public function isGet(){}
-
-	public function isPost(){}
-
-	public function isPut(){}
-
-	public function isHead(){}
-
-	public function isOptions(){}
-
-	public function isCli(){}
-
-	public function getServer($name, $default = NULL){}
-
-	public function getEnv($name, $default = NULL){}
-
-	public function setParam($name, $value = NULL){}
-
-	public function getParam($name, $default = NULL){}
-
-	public function getParams(){}
-
-	public function getException(){}
-
-	public function getModuleName(){}
-
-	public function getControllerName(){}
-
-	public function getActionName(){}
-
-	public function setModuleName($module){}
-
-	public function setControllerName($controller){}
-
-	public function setActionName($action){}
-
-	public function getMethod(){}
-
-	public function getLanguage(){}
-
-	public function setBaseUri($uir){}
-
-	public function getBaseUri(){}
-
-	public function getRequestUri(){}
-
-	public function setRequestUri($uir){}
-
-	public function isDispatched(){}
-
-	public function setDispatched(){}
-
-	public function isRouted(){}
-
-	public function setRouted($flag = NULL){}
+	/**
+	 * @link http://www.php.net/manual/en/yaf-request-http.clone.php
+	 */
+	private function __clone(){}
 }
 
+/**
+ * <b>Yaf_Request_Simple</b> is particularly used for test purpose. ie. simulate a spacial request under CLI mode.
+ * @link http://www.php.net/manual/en/class.yaf-request-simple.php
+ */
 class Yaf_Request_Simple extends Yaf_Request_Abstract {
 
-	/* constants */
-	const SCHEME_HTTP = 'http';
-	const SCHEME_HTTPS = 'https';
-	/* properties */
-	public $module = NULL;
-	public $controller = NULL;
-	public $action = NULL;
-	public $method = NULL;
-	protected $params = NULL;
-	protected $language = NULL;
-	protected $_exception = NULL;
-	protected $_base_uri = "";
-	protected $uri = "";
-	protected $dispatched = "";
-	protected $routed = "";
+	/**
+	 * Retrieve $_GET variable
+	 *
+	 * @link http://www.php.net/manual/en/yaf-request-simple.getquery.php
+	 *
+	 * @param string $name [optional] the variable name, if not provided returns all
+	 * @param string $default [optional] if this parameter is provide, this will be returned if the variable can not be found
+	 *
+	 * @return mixed
+	 */
+	public function getQuery($name = null , $default = null ){}
 
-	/* methods */
-	public function __construct(){}
+	/**
+	 * Retrieve $_REQUEST variable
+	 *
+	 * @link http://www.php.net/manual/en/yaf-request-simple.getrequest.php
+	 *
+	 * @param string $name [optional] the variable name, if not provided returns all
+	 * @param string $default [optional] if this parameter is provide, this will be returned if the variable can not be found
+	 *
+	 * @return mixed
+	 */
+	public function getRequest($name = null , $default = null ){}
 
-	private function __clone(){}
+	/**
+	 * Retrieve $_POST variable
+	 *
+	 * @link http://www.php.net/manual/en/yaf-request-simple.getpost.php
+	 *
+	 * @param string $name [optional] the variable name, if not provided returns all
+	 * @param string $default [optional] if this parameter is provide, this will be returned if the variable can not be found
+	 *
+	 * @return mixed
+	 */
+	public function getPost($name = null , $default = null ){}
 
-	public function getQuery(){}
+	/**
+	 * Retrieve $_Cookie variable
+	 *
+	 * @link http://www.php.net/manual/en/yaf-request-simple.getcookie.php
+	 *
+	 * @param string $name [optional] the variable name, if not provided returns all
+	 * @param string $default [optional] if this parameter is provide, this will be returned if the variable can not be found
+	 *
+	 * @return mixed
+	 */
+	public function getCookie($name = null , $default = null ){}
 
-	public function getRequest(){}
+	/**
+	 * @param mixed $name
+	 * @param null $default
+	 *
+	 * @return array
+	 */
+	public function getFiles($name = null , $default = null){}
 
-	public function getPost(){}
+	/**
+	 * Retrieve variable from client, this method will search the name in $_REQUEST params, if the name is not found, then will search in $_POST, $_GET, $_COOKIE, $_SERVER
+	 *
+	 * @link http://www.php.net/manual/en/yaf-request-simple.get.php
+	 *
+	 * @param string $name the variable name
+	 * @param string $default [optional] if this parameter is provide, this will be returned if the variable can not be found
+	 *
+	 * @return mixed
+	 */
+	public function get($name , $default = null){}
 
-	public function getCookie(){}
-
-	public function getFiles(){}
-
-	public function get(){}
-
+	/**
+	 * Check the request whether it is a Ajax Request
+	 *
+	 * <br/>
+	 * <b>Note:</b>
+	 * <p>
+	 * This method depends on the request header: HTTP_X_REQUESTED_WITH, some Javascript library doesn't set this header while doing Ajax request
+	 * </p>
+	 * @link http://www.php.net/manual/en/yaf-request-simple.isxmlhttprequest.php
+	 *
+	 * @return bool
+	 */
 	public function isXmlHttpRequest(){}
 
-	public function isGet(){}
+	/**
+	 * @link http://www.php.net/manual/en/yaf-request-simple.construct.php
+	 * @todo: document
+	 */
+	public function __construct(){}
 
-	public function isPost(){}
-
-	public function isPut(){}
-
-	public function isHead(){}
-
-	public function isOptions(){}
-
-	public function isCli(){}
-
-	public function getServer($name, $default = NULL){}
-
-	public function getEnv($name, $default = NULL){}
-
-	public function setParam($name, $value = NULL){}
-
-	public function getParam($name, $default = NULL){}
-
-	public function getParams(){}
-
-	public function getException(){}
-
-	public function getModuleName(){}
-
-	public function getControllerName(){}
-
-	public function getActionName(){}
-
-	public function setModuleName($module){}
-
-	public function setControllerName($controller){}
-
-	public function setActionName($action){}
-
-	public function getMethod(){}
-
-	public function getLanguage(){}
-
-	public function setBaseUri($uir){}
-
-	public function getBaseUri(){}
-
-	public function getRequestUri(){}
-
-	public function setRequestUri($uir){}
-
-	public function isDispatched(){}
-
-	public function setDispatched(){}
-
-	public function isRouted(){}
-
-	public function setRouted($flag = NULL){}
+	/**
+	 * @link http://www.php.net/manual/en/yaf-request-simple.clone.php
+	 */
+	private function __clone(){}
 }
 
 abstract class Yaf_Response_Abstract {
@@ -854,6 +886,9 @@ abstract class Yaf_Response_Abstract {
 
 	private function __toString(){}
 
+	/**
+	 * @return bool
+	 */
 	public function setBody(){}
 
 	public function appendBody(){}
@@ -899,6 +934,9 @@ class Yaf_Response_Http extends Yaf_Response_Abstract {
 		return '';
 	}
 
+	/**
+	 * @return bool
+	 */
 	public function setBody(){}
 
 	public function appendBody(){}
@@ -984,8 +1022,13 @@ abstract class Yaf_Controller_Abstract {
 
 	protected function display($tpl, array $parameters = NULL){}
 
+	/**
+	 * @return Yaf_Request_Abstract
+	 */
 	public function getRequest(){}
-
+	/**
+	 * @return Yaf_Response_Abstract
+	 */
 	public function getResponse(){}
 
 	public function getModuleName(){}
@@ -1643,4 +1686,3 @@ class Yaf_Exception_LoadFailed_Controller extends Yaf_Exception_LoadFailed {}
 class Yaf_Exception_LoadFailed_Action extends Yaf_Exception_LoadFailed {}
 class Yaf_Exception_LoadFailed_View extends Yaf_Exception_LoadFailed {}
 class Yaf_Exception_TypeError extends Yaf_Exception {}
-
