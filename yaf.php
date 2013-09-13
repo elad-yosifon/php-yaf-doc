@@ -105,6 +105,8 @@ final class Yaf_Application {
 	 *    ap.modules=Index
 	 * </p>
 	 * @param string $envrion - Which section will be loaded as the final config
+	 *
+	 * @throws Yaf_Exception_TypeError|Yaf_Exception_StartupError
 	 */
 	public function __construct($config, $envrion = NULL){}
 
@@ -113,6 +115,7 @@ final class Yaf_Application {
 	 * return response to client finally.
 	 *
 	 * @link http://www.php.net/manual/en/yaf-application.run.php
+	 * @throws Yaf_Exception_StartupError
 	 */
 	public function run(){}
 
@@ -495,6 +498,14 @@ final class Yaf_Dispatcher {
 	 * @link http://www.php.net/manual/en/yaf-dispatcher.dispatch.php
 	 *
 	 * @param Yaf_Request_Abstract $request
+	 *
+	 * @throws Yaf_Exception_TypeError
+	 * @throws Yaf_Exception_RouterFailed
+	 * @throws Yaf_Exception_DispatchFailed
+	 * @throws Yaf_Exception_LoadFailed
+	 * @throws Yaf_Exception_LoadFailed_Action
+	 * @throws Yaf_Exception_LoadFailed_Controller
+	 *
 	 * @return Yaf_Response_Abstract
 	 */
 	public function dispatch(Yaf_Request_Abstract $request){}
@@ -672,37 +683,113 @@ class Yaf_Loader {
 	public function getLibraryPath($is_global = false){}
 }
 
+/**
+ * @link http://www.php.net/manual/en/class.yaf-request-abstract.php
+ */
 abstract class Yaf_Request_Abstract {
 
-	/* constants */
-	const SCHEME_HTTP = 'http';
+	const SCHEME_HTTP  = 'http';
 	const SCHEME_HTTPS = 'https';
-
-	/* properties */
-	public $module = NULL;
-	public $controller = NULL;
-	public $action = NULL;
-	public $method = NULL;
-	protected $params = NULL;
-	protected $language = NULL;
-	protected $_exception = NULL;
+	/**
+	 * @var string
+	 */
+	public $module;
+	/**
+	 * @var string
+	 */
+	public $controller;
+	/**
+	 * @var string
+	 */
+	public $action;
+	/**
+	 * @var string
+	 */
+	public $method;
+	/**
+	 * @var array
+	 */
+	protected $params;
+	/**
+	 * @var string
+	 */
+	protected $language;
+	/**
+	 * @var Yaf_Exception
+	 */
+	protected $_exception;
+	/**
+	 * @var string
+	 */
 	protected $_base_uri = "";
+	/**
+	 * @var string
+	 */
 	protected $uri = "";
+	/**
+	 * @var string
+	 */
 	protected $dispatched = "";
+	/**
+	 * @var string
+	 */
 	protected $routed = "";
 
-	/* methods */
-	public function isGet(){}
+	/**
+	 * @link http://www.php.net/manual/en/yaf-request-abstract.isget.php
+	 *
+	 * @return bool
+	 */
+	public function isGet(){ }
 
-	public function isPost(){}
+	/**
+	 * @link http://www.php.net/manual/en/yaf-request-abstract.ispost.php
+	 *
+	 * @return bool
+	 */
+	public function isPost(){ }
 
-	public function isPut(){}
+	/**
+	 * @link http://www.php.net/manual/en/yaf-request-abstract.isput.php
+	 *
+	 * @return bool
+	 */
+	public function isPut(){ }
 
-	public function isHead(){}
+	/**
+	 * @link http://www.php.net/manual/en/yaf-request-abstract.ishead.php
+	 *
+	 * @return bool
+	 */
+	public function isHead(){ }
 
-	public function isOptions(){}
+	/**
+	 * @link http://www.php.net/manual/en/yaf-request-abstract.isoptions.php
+	 *
+	 * @return bool
+	 */
+	public function isOptions(){ }
 
-	public function isCli(){}
+	/**
+	 * @link http://www.php.net/manual/en/yaf-request-abstract.iscli.php
+	 *
+	 * @return bool
+	 */
+	public function isCli(){ }
+
+	/**
+	 * @link http://www.php.net/manual/en/yaf-request-abstract.isdispached.php
+	 *
+	 * @return bool
+	 */
+	public function isDispatched(){ }
+
+	/**
+	 * @link http://www.php.net/manual/en/yaf-request-abstract.isrouted.php
+	 *
+	 * @return bool
+	 */
+	public function isRouted(){ }
 
 	/**
 	 *
@@ -710,65 +797,183 @@ abstract class Yaf_Request_Abstract {
 	 *
 	 * @return bool false
 	 */
-	public function isXmlHttpRequest(){}
+	public function isXmlHttpRequest(){ }
 
-	public function getServer($name, $default = NULL){}
+	/**
+	 * Retrieve $_SERVER variable
+	 *
+	 * @link http://www.php.net/manual/en/yaf-request-abstract.getserver.php
+	 *
+	 * @param string $name the variable name, if not provided returns all
+	 * @param mixed $default if this parameter is provide, this will be returned if the variable can not be found
+	 *
+	 * @return mixed
+	 */
+	public function getServer($name = null, $default = null){ }
 
-	public function getEnv($name, $default = NULL){}
-
-	public function setParam($name, $value = NULL){}
+	/**
+	 * Retrieve $_ENV variable
+	 *
+	 * @link http://www.php.net/manual/en/yaf-request-abstract.getenv.php
+	 *
+	 * @param string $name the variable name, if not provided returns all
+	 * @param mixed $default if this parameter is provide, this will be returned if the variable can not be found
+	 *
+	 * @return mixed
+	 */
+	public function getEnv($name = null, $default = null){ }
 
 	/**
 	 *
 	 * @link http://www.php.net/manual/en/yaf-request-abstract.getparam.php
 	 *
 	 * @param string $name
-	 * @param string $default
-	 * @return string
+	 * @param mixed $default
+	 *
+	 * @return mixed
 	 */
-	public function getParam($name, $default = NULL){}
+	public function getParam($name, $default = null){ }
 
 	/**
 	 *
 	 * @link http://www.php.net/manual/en/yaf-request-abstract.getparams.php
 	 *
-	 * @return string[]
+	 * @return array
 	 */
-	public function getParams(){}
+	public function getParams(){ }
 
-	public function getException(){}
+	/**
+	 * @link http://www.php.net/manual/en/yaf-request-abstract.getexception.php
+	 *
+	 * @return Yaf_Exception
+	 */
+	public function getException(){ }
 
-	public function getModuleName(){}
+	/**
+	 * @link http://www.php.net/manual/en/yaf-request-abstract.getmoudlename.php
+	 *
+	 * @return string
+	 */
+	public function getModuleName(){ }
 
-	public function getControllerName(){}
+	/**
+	 * @link http://www.php.net/manual/en/yaf-request-abstract.getcontrollername.php
+	 *
+	 * @return string
+	 */
+	public function getControllerName(){ }
 
-	public function getActionName(){}
+	/**
+	 * @link http://www.php.net/manual/en/yaf-request-abstract.getactionname.php
+	 *
+	 * @return string
+	 */
+	public function getActionName(){ }
 
-	public function setModuleName($module){}
+	/**
+	 * @link http://www.php.net/manual/en/yaf-request-abstract.setparam.php
+	 *
+	 * @param string|array $name the variable name, or an array of key=>value pairs
+	 * @param string $value
+	 *
+	 * @return Yaf_Request_Abstract|bool
+	 */
+	public function setParam($name, $value = null){ }
 
-	public function setControllerName($controller){}
+	/**
+	 * @link http://www.php.net/manual/en/yaf-request-abstract.setmodulename.php
+	 *
+	 * @param string $module
+	 *
+	 * @return Yaf_Request_Abstract|bool
+	 */
+	public function setModuleName($module){ }
 
-	public function setActionName($action){}
+	/**
+	 * @link http://www.php.net/manual/en/yaf-request-abstract.setcontrollername.php
+	 *
+	 * @param string $controller
+	 *
+	 * @return Yaf_Request_Abstract|bool
+	 */
+	public function setControllerName($controller){ }
 
-	public function getMethod(){}
+	/**
+	 * @link http://www.php.net/manual/en/yaf-request-abstract.setactionname.php
+	 *
+	 * @param string $action
+	 *
+	 * @return Yaf_Request_Abstract|bool
+	 */
+	public function setActionName($action){ }
 
-	public function getLanguage(){}
+	/**
+	 * @link http://www.php.net/manual/en/yaf-request-abstract.getmethod.php
+	 *
+	 * @return string
+	 */
+	public function getMethod(){ }
 
-	public function setBaseUri($uir){}
+	/**
+	 * @link http://www.php.net/manual/en/yaf-request-abstract.getlanguage.php
+	 *
+	 * @return string
+	 */
+	public function getLanguage(){ }
 
-	public function getBaseUri(){}
+	/**
+	 * <p>Set base URI, base URI is used when doing routing, in routing phase request URI is used to route a request, while base URI is used to skip the leading part(base URI) of request URI. That is, if comes a request with request URI a/b/c, then if you set base URI to "a/b", only "/c" will be used in routing phase.</p>
+	 * <br/>
+	 * <b>Note:</b>
+	 * <p>generally, you don't need to set this, Yaf will determine it automatically.</p>
+	 *
+	 * @link http://www.php.net/manual/en/yaf-request-abstract.setbaseuri.php
+	 *
+	 * @param string $uri base URI
+	 *
+	 * @return bool
+	 */
+	public function setBaseUri($uri){ }
 
-	public function getRequestUri(){}
+	/**
+	 * @link http://www.php.net/manual/en/yaf-request-abstract.getbaseuri.php
+	 *
+	 * @return string
+	 */
+	public function getBaseUri(){ }
 
-	public function setRequestUri($uir){}
+	/**
+	 * @link http://www.php.net/manual/en/yaf-request-abstract.getrequesturi.php
+	 *
+	 * @return string
+	 */
+	public function getRequestUri(){ }
 
-	public function isDispatched(){}
+	/**
+	 * @since 2.1.0
+	 * @link http://www.php.net/manual/en/yaf-request-abstract.setrequesturi.php
+	 *
+	 * @param string $uri request URI
+	 */
+	public function setRequestUri($uri){ }
 
-	public function setDispatched(){}
+	/**
+	 * Set request as dispatched
+	 *
+	 * @link http://www.php.net/manual/en/yaf-request-abstract.setdispatched.php
+	 *
+	 * @return bool
+	 */
+	public function setDispatched(){ }
 
-	public function isRouted(){}
-
-	public function setRouted($flag = NULL){}
+	/**
+	 * Set request as routed
+	 *
+	 * @link http://www.php.net/manual/en/yaf-request-abstract.setrouted.php
+	 *
+	 * @return Yaf_Request_Abstract|bool
+	 */
+	public function setRouted(){ }
 }
 
 /**
@@ -782,7 +987,7 @@ class Yaf_Request_Http extends Yaf_Request_Abstract {
 	 * @link http://www.php.net/manual/en/yaf-request-http.getquery.php
 	 *
 	 * @param string $name the variable name, if not provided returns all
-	 * @param string $default if this parameter is provide, this will be returned if the variable can not be found
+	 * @param mixed $default if this parameter is provide, this will be returned if the variable can not be found
 	 *
 	 * @return mixed
 	 */
@@ -794,7 +999,7 @@ class Yaf_Request_Http extends Yaf_Request_Abstract {
 	 * @link http://www.php.net/manual/en/yaf-request-http.getrequest.php
 	 *
 	 * @param string $name the variable name, if not provided returns all
-	 * @param string $default if this parameter is provide, this will be returned if the variable can not be found
+	 * @param mixed $default if this parameter is provide, this will be returned if the variable can not be found
 	 *
 	 * @return mixed
 	 */
@@ -806,29 +1011,34 @@ class Yaf_Request_Http extends Yaf_Request_Abstract {
 	 * @link http://www.php.net/manual/en/yaf-request-http.getpost.php
 	 *
 	 * @param string $name the variable name, if not provided returns all
-	 * @param string $default if this parameter is provide, this will be returned if the variable can not be found
+	 * @param mixed $default if this parameter is provide, this will be returned if the variable can not be found
 	 *
 	 * @return mixed
 	 */
 	public function getPost($name = null , $default = null ){}
 
 	/**
-	 * Retrieve $_Cookie variable
+	 * Retrieve $_COOKIE variable
 	 *
 	 * @link http://www.php.net/manual/en/yaf-request-http.getcookie.php
 	 *
 	 * @param string $name the variable name, if not provided returns all
-	 * @param string $default if this parameter is provide, this will be returned if the variable can not be found
+	 * @param mixed $default if this parameter is provide, this will be returned if the variable can not be found
 	 *
 	 * @return mixed
 	 */
 	public function getCookie($name = null , $default = null ){}
 
+
 	/**
-	 * @param mixed $name
-	 * @param null $default
+	 * Retrieve $_FILES variable
 	 *
-	 * @return array
+	 * @link http://www.php.net/manual/en/yaf-request-http.getfiles.php
+	 *
+	 * @param string $name the variable name, if not provided returns all
+	 * @param mixed $default if this parameter is provide, this will be returned if the variable can not be found
+	 *
+	 * @return mixed
 	 */
 	public function getFiles($name = null , $default = null){}
 
@@ -860,9 +1070,12 @@ class Yaf_Request_Http extends Yaf_Request_Abstract {
 
 	/**
 	 * @link http://www.php.net/manual/en/yaf-request-http.construct.php
-	 * @todo: document
+	 *
+	 * @param string $request_uri
+	 * @param string $base_uri
+	 *
 	 */
-	public function __construct(){}
+	public function __construct($request_uri,$base_uri){}
 
 	/**
 	 * @link http://www.php.net/manual/en/yaf-request-http.clone.php
@@ -960,9 +1173,15 @@ class Yaf_Request_Simple extends Yaf_Request_Abstract {
 
 	/**
 	 * @link http://www.php.net/manual/en/yaf-request-simple.construct.php
-	 * @todo: document
+	 *
+	 * @param string $method
+	 * @param string $controller
+	 * @param string $action
+	 * @param string $params
+	 *
+	 * @throws Yaf_Exception_TypeError
 	 */
-	public function __construct(){}
+	public function __construct($method,$controller,$action,$params = null){}
 
 	/**
 	 * @link http://www.php.net/manual/en/yaf-request-simple.clone.php
@@ -1263,6 +1482,8 @@ class Yaf_Config_Ini extends Yaf_Config_Abstract implements Iterator, Traversabl
 	 *
 	 * @param string $config_file - path to an INI configure file
 	 * @param string $section - which section in that INI file you want to be parsed
+	 *
+	 * @throws Yaf_Exception_TypeError
 	 */
 	public function __construct($config_file, $section = NULL){}
 
@@ -1355,6 +1576,8 @@ class Yaf_Config_Simple extends Yaf_Config_Abstract implements Iterator, Travers
 	 *
 	 * @param string $config_file - path to an INI configure file
 	 * @param string $section - which section in that INI file you want to be parsed
+	 *
+	 * @throws Yaf_Exception_TypeError
 	 */
 	public function __construct($config_file, $section = NULL){}
 
@@ -1492,6 +1715,8 @@ class Yaf_View_Simple implements Yaf_View_Interface {
 	 * "<?=$var?>" in your template(regardless of "short_open_tag"),
 	 * so comes a option named "short_tag",  you can switch this off
 	 * to prevent use short_tag in template.
+	 *
+	 * @throws Yaf_Exception_TypeError
 	 */
 	final public function __construct($template_dir, array $options = NULL){}
 
@@ -1513,11 +1738,29 @@ class Yaf_View_Simple implements Yaf_View_Interface {
 	 */
 	public function assign($name, $value = NULL){}
 
+	/**
+	 * @todo: document
+	 * @param string $tpl
+	 * @param array $tpl_vars
+	 *
+	 * @throws Yaf_Exception_LoadFailed_View
+	 *
+	 * @return string|void
+	 */
 	public function render($tpl,array $tpl_vars = NULL){}
 
 	//todo: change to eval
 	public function _eval($tpl_str, $vars = NULL){}
 
+	/**
+	 * @todo: document
+	 * @param string $tpl
+	 * @param array $tpl_vars
+	 *
+	 * @throws Yaf_Exception_LoadFailed_View
+	 *
+	 * @return bool|void
+	 */
 	public function display($tpl, array $tpl_vars = NULL){}
 
 	public function assignRef($name, &$value){}
@@ -1611,7 +1854,15 @@ final class Yaf_Route_Simple implements Yaf_Route {
 	protected $module = NULL;
 	protected $action = NULL;
 
-	/* methods */
+	/**
+	 * @todo: document
+	 * @param $module_name
+	 * @param $controller_name
+	 * @param $action_name
+	 *
+	 * @throws Yaf_Exception_TypeError
+	 *
+	 */
 	public function __construct($module_name, $controller_name, $action_name){}
 
 	public function route(Yaf_Request_Abstract $request){}
@@ -1624,7 +1875,12 @@ final class Yaf_Route_Supervar implements Yaf_Route_Interface {
 	/* properties */
 	protected $_var_name = NULL;
 
-	/* methods */
+	/**
+	 * @todo: document
+	 * @param $supervar_name
+	 *
+	 * @throws Yaf_Exception_TypeError
+	 */
 	public function __construct($supervar_name){}
 
 	public function route(Yaf_Request_Abstract $request){}
@@ -1639,7 +1895,14 @@ final class Yaf_Route_Rewrite extends Yaf_Router implements Yaf_Route_Interface 
 	protected $_default = NULL;
 	protected $_verify = NULL;
 
-	/* methods */
+	/**
+	 * @todo: document
+	 * @param $match
+	 * @param array $route
+	 * @param array $verify
+	 *
+	 * @throws Yaf_Exception_TypeError
+	 */
 	public function __construct($match, array $route, array $verify = NULL){}
 
 	public function route(Yaf_Request_Abstract $request){}
@@ -1655,7 +1918,15 @@ final class Yaf_Route_Regex extends Yaf_Router implements Yaf_Route_Interface {
 	protected $_maps = NULL;
 	protected $_verify = NULL;
 
-	/* methods */
+	/**
+	 * @todo: document
+	 * @param $match
+	 * @param array $route
+	 * @param array $map
+	 * @param array $verify
+	 *
+	 * @throws Yaf_Exception_TypeError
+	 */
 	public function __construct($match, array $route, array $map = NULL, array $verify = NULL){}
 
 	public function route(Yaf_Request_Abstract $request){}
