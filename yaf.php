@@ -359,7 +359,7 @@ final class Yaf_Dispatcher {
 	 * @param array $options
 	 * @return Yaf_View_Interface
 	 */
-	public function initView($templates_dir, array $options = array()){}
+	public function initView($templates_dir, array $options = null){}
 
 	/**
 	 * This method provides a solution for that if you want use a custom view engine instead of Yaf_View_Simple
@@ -532,42 +532,144 @@ final class Yaf_Dispatcher {
 	public function registerPlugin(Yaf_Plugin_Abstract $plugin){}
 }
 
+/**
+ * <p><b>Yaf_Loader</b> introduces a comprehensive autoloading solution for Yaf.</p>
+ * <br/>
+ * <p>The first time an instance of Yaf_Application is retrieved, <b>Yaf_Loader</b> will instance a singleton, and registers itself with spl_autoload. You retrieve an instance using the Yaf_Loader::getInstance()</p>
+ * <br/>
+ * <p><b>Yaf_Loader</b> attempt to load a class only one shot, if failed, depend on yaf.use_spl_autoload, if this config is On Yaf_Loader::autoload() will return FALSE, thus give the chance to other autoload function. if it is Off (by default), Yaf_Loader::autoload() will return TRUE, and more important is that a very useful warning will be triggered (very useful to find out why a class could not be loaded).</p>
+ * <br/>
+ * <b>Note:</b>
+ * <p>Please keep yaf.use_spl_autoload Off unless there is some library have their own autoload mechanism and impossible to rewrite it.</p>
+ * <br/>
+ * <p>If you want <b>Yaf_Loader</b> search some classes(libraries) in the local class directory(which is defined in application.ini, and by default, it is application.directory . "/library"), you should register the class prefix using the Yaf_Loader::registerLocalNameSpace()</p>
+ * @link http://www.php.net/manual/en/class.yaf-loader.php
+ *
+ */
 class Yaf_Loader {
 
-	/* constants */
+	/**
+	 * @var string
+	 */
+	protected $_local_ns;
+	/**
+	 * By default, this value is application.directory . "/library", you can change this either in the application.ini(application.library) or call to Yaf_Loader::setLibraryPath()
+	 * @var string
+	 */
+	protected $_library;
+	/**
+	 * @var string
+	 */
+	protected $_global_library;
+	/**
+	 * @var Yaf_Loader
+	 */
+	protected static $_instance;
 
-	/* properties */
-	protected $_local_ns = NULL;
-	protected $_library = NULL;
-	protected $_global_library = NULL;
-	protected static $_instance = NULL;
-
-	/* methods */
+	/**
+	 * @link http://www.php.net/manual/en/yaf-loader.construct.php
+	 */
 	private function __construct(){}
 
+	/**
+	 * @link http://www.php.net/manual/en/yaf-loader.clone.php
+	 */
 	private function __clone(){}
 
+	/**
+	 * @link http://www.php.net/manual/en/yaf-loader.sleep.php
+	 */
 	private function __sleep(){}
 
+	/**
+	 * @link http://www.php.net/manual/en/yaf-loader.wakeup.php
+	 */
 	private function __wakeup(){}
 
+	/**
+	 * @link http://www.php.net/manual/en/yaf-loader.autoload.php
+	 *
+	 * @param string $class_name
+	 *
+	 * @return bool
+	 */
 	public function autoload($class_name){}
 
+	/**
+	 * @link http://www.php.net/manual/en/yaf-loader.getinstance.php
+	 *
+	 * @param string $local_library_path
+	 * @param string $global_library_path
+	 *
+	 * @return Yaf_Loader
+	 */
 	public static function getInstance($local_library_path = NULL, $global_library_path = NULL){}
 
+	/**
+	 * <p>Register local class prefix name, Yaf_Loader search classes in two library directories, the one is configured via application.library.directory(in application.ini) which is called local library directory; the other is configured via yaf.library (in php.ini) which is callled global library directory, since it can be shared by many applications in the same server.</p>
+	 * <br/>
+	 * <p>When an autoloading is triggered, Yaf_Loader will determine which library directory should be searched in by examining the prefix name of the missed classname. If the prefix name is registered as a local namespace then look for it in local library directory, otherwise look for it in global library directory.</p>
+	 * <br/>
+	 * <b>Note:</b>
+	 * <p>If yaf.library is not configured, then the global library directory is assumed to be the local library directory. in that case, all autoloading will look for local library directory. But if you want your Yaf application be strong, then always register your own classes as local classes.</p>
+	 * @link http://www.php.net/manual/en/yaf-loader.registerlocalnamespace.php
+	 *
+	 * @param string|string[] $name_prefix a string or a array of class name prefix. all class prefix with these prefix will be loaded in local library path.
+	 *
+	 * @return bool
+	 */
 	public function registerLocalNamespace($name_prefix){}
 
+	/**
+	 * @link http://www.php.net/manual/en/yaf-loader.getlocalnamespace.php
+	 *
+	 * @return string
+	 */
 	public function getLocalNamespace(){}
 
+	/**
+	 * @link http://www.php.net/manual/en/yaf-loader.clearlocalnamespace.php
+	 */
 	public function clearLocalNamespace(){}
 
+	/**
+	 * @link http://www.php.net/manual/en/yaf-loader.islocalname.php
+	 *
+	 * @param string $class_name
+	 *
+	 * @return bool
+	 */
 	public function isLocalName($class_name){}
 
+	/**
+	 * @link http://www.php.net/manual/en/yaf-loader.import.php
+	 *
+	 * @param string $file
+	 *
+	 * @return bool
+	 */
 	public static function import($file){}
 
-	public function setLibraryPath($library_path, $is_global = NULL){}
+	/**
+	 * @since 2.1.4
+	 * @link http://www.php.net/manual/en/yaf-loader.setlibrarypath.php
+	 *
+	 * @param string $directory
+	 * @param bool $global
+	 *
+	 * @return Yaf_Loader
+	 */
+	public function setLibraryPath($directory, $global = false){}
 
-	public function getLibraryPath($is_global = NULL){}
+	/**
+	 * @since 2.1.4
+	 * @link http://www.php.net/manual/en/yaf-loader.getlibrarypath.php
+	 *
+	 * @param bool $is_global
+	 *
+	 * @return string
+	 */
+	public function getLibraryPath($is_global = false){}
 }
 
 abstract class Yaf_Request_Abstract {
@@ -679,8 +781,8 @@ class Yaf_Request_Http extends Yaf_Request_Abstract {
 	 *
 	 * @link http://www.php.net/manual/en/yaf-request-http.getquery.php
 	 *
-	 * @param string $name [optional] the variable name, if not provided returns all
-	 * @param string $default [optional] if this parameter is provide, this will be returned if the variable can not be found
+	 * @param string $name the variable name, if not provided returns all
+	 * @param string $default if this parameter is provide, this will be returned if the variable can not be found
 	 *
 	 * @return mixed
 	 */
@@ -691,8 +793,8 @@ class Yaf_Request_Http extends Yaf_Request_Abstract {
 	 *
 	 * @link http://www.php.net/manual/en/yaf-request-http.getrequest.php
 	 *
-	 * @param string $name [optional] the variable name, if not provided returns all
-	 * @param string $default [optional] if this parameter is provide, this will be returned if the variable can not be found
+	 * @param string $name the variable name, if not provided returns all
+	 * @param string $default if this parameter is provide, this will be returned if the variable can not be found
 	 *
 	 * @return mixed
 	 */
@@ -703,8 +805,8 @@ class Yaf_Request_Http extends Yaf_Request_Abstract {
 	 *
 	 * @link http://www.php.net/manual/en/yaf-request-http.getpost.php
 	 *
-	 * @param string $name [optional] the variable name, if not provided returns all
-	 * @param string $default [optional] if this parameter is provide, this will be returned if the variable can not be found
+	 * @param string $name the variable name, if not provided returns all
+	 * @param string $default if this parameter is provide, this will be returned if the variable can not be found
 	 *
 	 * @return mixed
 	 */
@@ -715,8 +817,8 @@ class Yaf_Request_Http extends Yaf_Request_Abstract {
 	 *
 	 * @link http://www.php.net/manual/en/yaf-request-http.getcookie.php
 	 *
-	 * @param string $name [optional] the variable name, if not provided returns all
-	 * @param string $default [optional] if this parameter is provide, this will be returned if the variable can not be found
+	 * @param string $name the variable name, if not provided returns all
+	 * @param string $default if this parameter is provide, this will be returned if the variable can not be found
 	 *
 	 * @return mixed
 	 */
@@ -736,7 +838,7 @@ class Yaf_Request_Http extends Yaf_Request_Abstract {
 	 * @link http://www.php.net/manual/en/yaf-request-http.get.php
 	 *
 	 * @param string $name the variable name
-	 * @param string $default [optional] if this parameter is provide, this will be returned if the variable can not be found
+	 * @param string $default if this parameter is provide, this will be returned if the variable can not be found
 	 *
 	 * @return mixed
 	 */
@@ -779,8 +881,8 @@ class Yaf_Request_Simple extends Yaf_Request_Abstract {
 	 *
 	 * @link http://www.php.net/manual/en/yaf-request-simple.getquery.php
 	 *
-	 * @param string $name [optional] the variable name, if not provided returns all
-	 * @param string $default [optional] if this parameter is provide, this will be returned if the variable can not be found
+	 * @param string $name the variable name, if not provided returns all
+	 * @param string $default if this parameter is provide, this will be returned if the variable can not be found
 	 *
 	 * @return mixed
 	 */
@@ -791,8 +893,8 @@ class Yaf_Request_Simple extends Yaf_Request_Abstract {
 	 *
 	 * @link http://www.php.net/manual/en/yaf-request-simple.getrequest.php
 	 *
-	 * @param string $name [optional] the variable name, if not provided returns all
-	 * @param string $default [optional] if this parameter is provide, this will be returned if the variable can not be found
+	 * @param string $name the variable name, if not provided returns all
+	 * @param string $default if this parameter is provide, this will be returned if the variable can not be found
 	 *
 	 * @return mixed
 	 */
@@ -803,8 +905,8 @@ class Yaf_Request_Simple extends Yaf_Request_Abstract {
 	 *
 	 * @link http://www.php.net/manual/en/yaf-request-simple.getpost.php
 	 *
-	 * @param string $name [optional] the variable name, if not provided returns all
-	 * @param string $default [optional] if this parameter is provide, this will be returned if the variable can not be found
+	 * @param string $name the variable name, if not provided returns all
+	 * @param string $default if this parameter is provide, this will be returned if the variable can not be found
 	 *
 	 * @return mixed
 	 */
@@ -815,8 +917,8 @@ class Yaf_Request_Simple extends Yaf_Request_Abstract {
 	 *
 	 * @link http://www.php.net/manual/en/yaf-request-simple.getcookie.php
 	 *
-	 * @param string $name [optional] the variable name, if not provided returns all
-	 * @param string $default [optional] if this parameter is provide, this will be returned if the variable can not be found
+	 * @param string $name the variable name, if not provided returns all
+	 * @param string $default if this parameter is provide, this will be returned if the variable can not be found
 	 *
 	 * @return mixed
 	 */
@@ -836,7 +938,7 @@ class Yaf_Request_Simple extends Yaf_Request_Abstract {
 	 * @link http://www.php.net/manual/en/yaf-request-simple.get.php
 	 *
 	 * @param string $name the variable name
-	 * @param string $default [optional] if this parameter is provide, this will be returned if the variable can not be found
+	 * @param string $default if this parameter is provide, this will be returned if the variable can not be found
 	 *
 	 * @return mixed
 	 */
