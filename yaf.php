@@ -76,7 +76,7 @@ final class Yaf_Application {
 	 * <p>
 	 *    <b>Example #1 A ini config file example</b><br/>
 	 *    [product]<br/>
-	 *    ;this one should alway be defined, and have no default value<br/>
+	 *    ;this one should always be defined, and have no default value<br/>
 	 *    application.directory=APPLICATION_PATH<br/><br/>
 	 * </p>
 	 * <p>
@@ -96,7 +96,7 @@ final class Yaf_Application {
 	 *    ap.view.ext=phtml<br/><br/>
 	 * </p>
 	 * <p>
-	 *    ap.dispatcher.defaultModuel=Index<br/>
+	 *    ap.dispatcher.defaultModule=Index<br/>
 	 *    ap.dispatcher.defaultController=Index<br/>
 	 *    ap.dispatcher.defaultAction=index<br/><br/>
 	 * </p>
@@ -614,7 +614,7 @@ class Yaf_Loader {
 	public static function getInstance($local_library_path = NULL, $global_library_path = NULL){}
 
 	/**
-	 * <p>Register local class prefix name, Yaf_Loader search classes in two library directories, the one is configured via application.library.directory(in application.ini) which is called local library directory; the other is configured via yaf.library (in php.ini) which is callled global library directory, since it can be shared by many applications in the same server.</p>
+	 * <p>Register local class prefix name, Yaf_Loader search classes in two library directories, the one is configured via application.library.directory(in application.ini) which is called local library directory; the other is configured via yaf.library (in php.ini) which is called global library directory, since it can be shared by many applications in the same server.</p>
 	 * <br/>
 	 * <p>When an autoloading is triggered, Yaf_Loader will determine which library directory should be searched in by examining the prefix name of the missed classname. If the prefix name is registered as a local namespace then look for it in local library directory, otherwise look for it in global library directory.</p>
 	 * <br/>
@@ -1927,7 +1927,7 @@ class Yaf_View_Simple implements Yaf_View_Interface {
 	/**
 	 * @link http://www.php.net/manual/en/yaf-view-simple.construct.php
 	 *
-	 * @param string $template_dir The base directory of the templates, by default, it is APPLICATOIN . "/views" for Yaf.
+	 * @param string $template_dir The base directory of the templates, by default, it is APPLICATION . "/views" for Yaf.
 	 * @param array $options <p>Options for the engine, as of Yaf 2.1.13, you can use short tag
 	 * "<?=$var?>" in your template(regardless of "short_open_tag"),
 	 * so comes a option named "short_tag",  you can switch this off
@@ -1997,7 +1997,7 @@ class Yaf_View_Simple implements Yaf_View_Interface {
 	 * <p>unlike Yaf_View_Simple::assign(), this method assign a ref value to engine.</p>
 	 * @link http://www.php.net/manual/en/yaf-view-simple.assignref.php
 	 *
-	 * @param string $name A string name which will be used to access the value in the tempalte.
+	 * @param string $name A string name which will be used to access the value in the template.
 	 * @param mixed $value mixed value
 	 */
 	public function assignRef($name, &$value){}
@@ -2075,152 +2075,341 @@ interface Yaf_Route_Interface {
 	function route(Yaf_Request_Abstract $request);
 }
 
+/**
+ * <p><b>Yaf_Router</b> is the standard framework router. Routing is the process of taking a URI endpoint (that part of the URI which comes after the base URI: see Yaf_Request_Abstract::setBaseUri()) and decomposing it into parameters to determine which module, controller, and action of that controller should receive the request. This values of the module, controller, action and other parameters are packaged into a Yaf_Request_Abstract object which is then processed by Yaf_Dispatcher. Routing occurs only once: when the request is initially received and before the first controller is dispatched. Yaf_Router is designed to allow for mod_rewrite-like functionality using pure PHP structures. It is very loosely based on Ruby on Rails routing and does not require any prior knowledge of webserver URL rewriting</p>
+ * <br/>
+ * <b>Default Route</b>
+ * <br/>
+ * <p><b>Yaf_Router</b> comes pre-configured with a default route Yaf_Route_Static, which will match URIs in the shape of controller/action. Additionally, a module name may be specified as the first path element, allowing URIs of the form module/controller/action. Finally, it will also match any additional parameters appended to the URI by default - controller/action/var1/value1/var2/value2.</p>
+ * <br/>
+ * <b>Note:</b>
+ * <p>Module name must be defined in config, considering application.module="Index,Foo,Bar", in this case, only index, foo and bar can be considered as a module name. if doesn't config, there is only one module named "Index".</p>
+ * <br/>
+ * <p>** See examples by opening the external documentation</p>
+ * @link http://www.php.net/manual/en/class.yaf-router.php
+ */
 class Yaf_Router {
 
-	/* constants */
-
-	/* properties */
-	protected $_routes = NULL;
-	protected $_current = NULL;
-
-	/* methods */
-	public function __construct(){}
-
-	public function addRoute(){}
-
-	public function addConfig(){}
-
-	public function route(){}
-
-	public function getRoute(){}
-
-	public function getRoutes(){}
-
-	public function getCurrentRoute(){}
-}
-
-class Yaf_Route_Static implements Yaf_Route_Interface {
-
-	/* constants */
-
-	/* properties */
-
-	/* methods */
-	public function match($uri){}
-
-	public function route(Yaf_Request_Abstract $request){}
-
-	public function __construct(){}
-
-	public function addRoute(){}
-
-	public function addConfig(){}
-
-	public function getRoute(){}
-
-	public function getRoutes(){}
-
-	public function getCurrentRoute(){}
-}
-
-final class Yaf_Route_Simple implements Yaf_Route {
-
-	/* constants */
-
-	/* properties */
-	protected $controller = NULL;
-	protected $module = NULL;
-	protected $action = NULL;
+	/**
+	 * @var Yaf_Route_Interface[] registered routes stack
+	 */
+	protected $_routes;
+	/**
+	 * @var string after routing phase, this indicated the name of which route is used to route current request. you can get this name by Yaf_Router::getCurrentRoute()
+	 */
+	protected $_current;
 
 	/**
-	 * @todo: document
-	 * @param $module_name
-	 * @param $controller_name
-	 * @param $action_name
+	 * @link http://www.php.net/manual/en/yaf-router.construct.php
+	 */
+	public function __construct(){}
+
+	/**
+	 * <p>by default, Yaf_Router using a Yaf_Route_Static as its default route. you can add new routes into router's route stack by calling this method.</p>
+	 * <br/>
+	 * <p>the newer route will be called before the older(route stack), and if the newer router return TRUE, the router process will be end. otherwise, the older one will be called.</p>
+	 *
+	 * @link http://www.php.net/manual/en/yaf-router.addroute.php
+	 *
+	 * @param string $name
+	 * @param Yaf_Route_Interface $route
+	 *
+	 * @return bool|Yaf_Router return FALSE on failure
+	 */
+	public function addRoute($name,Yaf_Route_Interface $route){}
+
+	/**
+	 * <p>Add routes defined by configs into Yaf_Router's route stack</p>
+	 *
+	 * @link http://www.php.net/manual/en/yaf-router.addconfig.php
+	 *
+	 * @param Yaf_Config_Abstract $config
+	 *
+	 * @return bool|Yaf_Router return FALSE on failure
+	 */
+	public function addConfig(Yaf_Config_Abstract $config){}
+
+	/**
+	 * @link http://www.php.net/manual/en/yaf-router.route.php
+	 *
+	 * @param Yaf_Request_Abstract $request
+	 *
+	 * @return bool|Yaf_Router return FALSE on failure
+	 */
+	public function route(Yaf_Request_Abstract $request){}
+
+	/**
+	 * <p>Retrieve a route by name, see also Yaf_Router::getCurrentRoute()</p>
+	 *
+	 * @link http://www.php.net/manual/en/yaf-router.getroute.php
+	 *
+	 * @param string $name
+	 *
+	 * @return Yaf_Route_Interface
+	 */
+	public function getRoute($name){}
+
+	/**
+	 * @link http://www.php.net/manual/en/yaf-router.getroutes.php
+	 *
+	 * @return Yaf_Route_Interface[]
+	 */
+	public function getRoutes(){}
+
+	/**
+	 * <p>Get the name of the route which is effective in the route process.</p>
+	 * <br/>
+	 * <b>Note:</b>
+	 * <p>You should call this method after the route process finished, since before that, this method will always return NULL.</p>
+	 *
+	 * @link http://www.php.net/manual/en/yaf-router.getcurrentroute.php
+	 *
+	 * @return string the name of the effective route.
+	 */
+	public function getCurrentRoute(){}
+}
+
+/**
+ * <p>by default, Yaf_Router only have a <b>Yaf_Route_Static</b> as its default route.</p>
+ * <br/>
+ * <p><b>Yaf_Route_Static</b> is designed to handle 80% of normal requirements.</p>
+ * <br/>
+ * <b>Note:</b>
+ * <p> it is unnecessary to instance a <b>Yaf_Route_Static</b>, also unnecessary to add it into Yaf_Router's routes stack, since there is always be one in Yaf_Router's routes stack, and always be called at the last time.</p>
+ *
+ * @link http://www.php.net/manual/en/class.yaf-route-static.php
+ *
+ */
+class Yaf_Route_Static implements Yaf_Route_Interface {
+
+	/**
+	 * @deprecated not_implemented
+	 * @link http://www.php.net/manual/en/yaf-route-static.match.php
+	 *
+	 * @param string $uri
+	 *
+	 * @return bool
+	 */
+	public function match($uri){}
+
+	/**
+	 * @link http://www.php.net/manual/en/yaf-route-static.route.php
+	 *
+	 * @param Yaf_Request_Abstract $request
+	 *
+	 * @return bool always TRUE
+	 */
+	public function route(Yaf_Request_Abstract $request){}
+}
+
+/**
+ * <p><b>Yaf_Route_Simple</b> will match the query string, and find the route info.</p>
+ * <br/>
+ * <p>all you need to do is tell <b>Yaf_Route_Simple</b> what key in the $_GET is module, what key is controller, and what key is action.</p>
+ * <br/>
+ * <p>Yaf_Route_Simple::route() will always return TRUE, so it is important put <b>Yaf_Route_Simple</b> in the front of the Route stack, otherwise all the other routes will not be called</p>
+ *
+ * @link http://www.php.net/manual/en/class.yaf-route-simple.php
+ */
+final class Yaf_Route_Simple implements Yaf_Route_Interface {
+
+	/**
+	 * @var string
+	 */
+	protected $controller;
+	/**
+	 * @var string
+	 */
+	protected $module;
+	/**
+	 * @var string
+	 */
+	protected $action;
+
+	/**
+	 * <p>Yaf_Route_Simple will get route info from query string. and the parameters of this constructor will used as keys while searching for the route info in $_GET.</p>
+	 *
+	 * @link http://www.php.net/manual/en/yaf-route-simple.construct.php
+	 *
+	 * @param string $module_name
+	 * @param string $controller_name
+	 * @param string $action_name
 	 *
 	 * @throws Yaf_Exception_TypeError
-	 *
 	 */
 	public function __construct($module_name, $controller_name, $action_name){}
 
+
+	/**
+	 * <p>see Yaf_Route_Simple::__construct()</p>
+	 *
+	 * @link http://www.php.net/manual/en/yaf-route-simple.route.php
+	 *
+	 * @param Yaf_Request_Abstract $request
+	 *
+	 * @return bool always TRUE
+	 */
 	public function route(Yaf_Request_Abstract $request){}
 }
 
+/**
+ * @link http://www.php.net/manual/en/class.yaf-route-supervar.php
+ */
 final class Yaf_Route_Supervar implements Yaf_Route_Interface {
 
-	/* constants */
-
-	/* properties */
-	protected $_var_name = NULL;
+	/**
+	 * @var string
+	 */
+	protected $_var_name;
 
 	/**
-	 * @todo: document
-	 * @param $supervar_name
+	 * <p>Yaf_Route_Supervar is similar to Yaf_Route_Static, the difference is that Yaf_Route_Supervar will look for path info in query string, and the parameter supervar_name is the key.</p>
+	 *
+	 * @link http://www.php.net/manual/en/yaf-route-supervar.construct.php
+	 *
+	 * @param string $supervar_name The name of key.
 	 *
 	 * @throws Yaf_Exception_TypeError
 	 */
 	public function __construct($supervar_name){}
 
+	/**
+	 * @link http://www.php.net/manual/en/yaf-route-supervar.route.php
+	 *
+	 * @param Yaf_Request_Abstract $request
+	 *
+	 * @return bool If there is a key(which was defined in Yaf_Route_Supervar::__construct()) in $_GET, return TRUE. otherwise return FALSE.
+	 */
 	public function route(Yaf_Request_Abstract $request){}
 }
 
+/**
+ * <p>For usage, please see the example section of Yaf_Route_Rewrite::__construct()</p>
+ *
+ * @link http://www.php.net/manual/en/class.yaf-route-rewrite.php
+ */
 final class Yaf_Route_Rewrite extends Yaf_Router implements Yaf_Route_Interface {
 
-	/* constants */
-
-	/* properties */
-	protected $_route = NULL;
-	protected $_default = NULL;
-	protected $_verify = NULL;
+	/**
+	 * @var string
+	 */
+	protected $_route;
+	/**
+	 * @var array
+	 */
+	protected $_default;
+	/**
+	 * @var array
+	 */
+	protected $_verify;
 
 	/**
-	 * @todo: document
-	 * @param $match
-	 * @param array $route
+	 * @link http://www.php.net/manual/en/yaf-route-rewrite.construct.php
+	 *
+	 * @param string $match A pattern, will be used to match a request uri, if doesn't matched, Yaf_Route_Rewrite will return FALSE.
+	 * @param array $route <p>When the match pattern matches the request uri, Yaf_Route_Rewrite will use this to decide which m/c/a to routed.</p>
+	 * <br/>
+	 * <p>either of m/c/a in this array is optional, if you don't assign a specific value, it will be routed to default.</p>
 	 * @param array $verify
 	 *
 	 * @throws Yaf_Exception_TypeError
 	 */
-	public function __construct($match, array $route, array $verify = NULL){}
+	public function __construct($match, array $route, array $verify = null){}
 
+	/**
+	 * @link http://www.php.net/manual/en/yaf-route-rewrite.route.php
+	 *
+	 * @param Yaf_Request_Abstract $request
+	 *
+	 * @return bool
+	 */
 	public function route(Yaf_Request_Abstract $request){}
 }
 
+/**
+ * <p><b>Yaf_Route_Regex</b> is the most flexible route among the Yaf built-in routes.</p>
+ *
+ * @link http://www.php.net/manual/en/class.yaf-route-regex.php
+ */
 final class Yaf_Route_Regex extends Yaf_Router implements Yaf_Route_Interface {
 
-	/* constants */
-
-	/* properties */
-	protected $_route = NULL;
-	protected $_default = NULL;
-	protected $_maps = NULL;
-	protected $_verify = NULL;
+	/**
+	 * @var string
+	 */
+	protected $_route;
+	/**
+	 * @var array
+	 */
+	protected $_default;
+	/**
+	 * @var array
+	 */
+	protected $_maps;
+	/**
+	 * @var array
+	 */
+	protected $_verify;
 
 	/**
-	 * @todo: document
-	 * @param $match
-	 * @param array $route
-	 * @param array $map
+	 * @link http://www.php.net/manual/en/yaf-route-regex.construct.php
+	 *
+	 * @param string $match A complete Regex pattern, will be used to match a request uri, if doesn't matched, Yaf_Route_Regex will return FALSE.
+	 * @param array $route <p>When the match pattern matches the request uri, Yaf_Route_Regex will use this to decide which m/c/a to routed.</p>
+	 * <br/>
+	 * <p>either of m/c/a in this array is optional, if you don't assign a specific value, it will be routed to default.</p>
+	 * @param array $map A array to assign name to the captures in the match result.
 	 * @param array $verify
 	 *
 	 * @throws Yaf_Exception_TypeError
 	 */
-	public function __construct($match, array $route, array $map = NULL, array $verify = NULL){}
+	public function __construct($match, array $route, array $map = null, array $verify = null){}
 
+	/**
+	 * Route a incoming request.
+	 *
+	 * @link http://www.php.net/manual/en/yaf-route-regex.route.php
+	 *
+	 * @param Yaf_Request_Abstract $request
+	 *
+	 * @return bool If the pattern given by the first parameter of Yaf_Route_Regex::_construct() matches the request uri, return TRUE, otherwise return FALSE.
+	 */
 	public function route(Yaf_Request_Abstract $request){}
 }
 
+/**
+ * <p><b>Yaf_Route_Map</b> is a built-in route, it simply convert a URI endpoint (that part of the URI which comes after the base URI: see Yaf_Request_Abstract::setBaseUri()) to a controller name or action name(depends on the parameter passed to Yaf_Route_Map::__construct()) in following rule: A => controller A. A/B/C => controller A_B_C. A/B/C/D/E => controller A_B_C_D_E.</p>
+ * <br/>
+ * <p>If the second parameter of Yaf_Route_Map::__construct() is specified, then only the part before delimiter of URI will used to routing, the part after it is used to routing request parameters (see the example section of Yaf_Route_Map::__construct()).</p>
+ *
+ * @link http://www.php.net/manual/en/class.yaf-route-map.php
+ */
 final class Yaf_Route_Map implements Yaf_Route_Interface {
 
-	/* constants */
+	/**
+	 * @var string
+	 */
+	protected $_ctl_router = '';
+	/**
+	 * @fixme: typo=>should be $_delimiter
+	 * @var string
+	 */
+	protected $_delimeter;
 
-	/* properties */
-	protected $_ctl_router = "";
-	protected $_delimeter = NULL;
+	/**
+	 * @link http://www.php.net/manual/en/yaf-route-map.construct.php
+	 *
+	 * @param bool $controller_prefer Whether the result should considering as controller or action
+	 * @param string $delimiter
+	 */
+	public function __construct($controller_prefer = false, $delimiter = ''){}
 
-	/* methods */
-	public function __construct($controller_prefer = NULL, $delimiter = NULL){}
-
+	/**
+	 * @link http://www.php.net/manual/en/yaf-route-map.route.php
+	 *
+	 * @param Yaf_Request_Abstract $request
+	 *
+	 * @return bool
+	 */
 	public function route(Yaf_Request_Abstract $request){}
 }
 
@@ -2349,13 +2538,43 @@ final class Yaf_Session implements Iterator, Traversable, ArrayAccess, Countable
 	public function __unset($name){}
 }
 
+/**
+ * @link http://www.php.net/manual/en/class.yaf-exception.php
+ */
 class Yaf_Exception extends Exception {}
-class Yaf_Exception_StartupError extends Yaf_Exception {}
-class Yaf_Exception_RouterFailed extends Yaf_Exception {}
-class Yaf_Exception_DispatchFailed extends Yaf_Exception {}
-class Yaf_Exception_LoadFailed extends Yaf_Exception {}
-class Yaf_Exception_LoadFailed_Module extends Yaf_Exception_LoadFailed {}
-class Yaf_Exception_LoadFailed_Controller extends Yaf_Exception_LoadFailed {}
-class Yaf_Exception_LoadFailed_Action extends Yaf_Exception_LoadFailed {}
-class Yaf_Exception_LoadFailed_View extends Yaf_Exception_LoadFailed {}
+/**
+ * @link http://www.php.net/manual/en/class.yaf-exception-typeerror.php
+ */
 class Yaf_Exception_TypeError extends Yaf_Exception {}
+/**
+ * @link http://www.php.net/manual/en/class.yaf-exception-startuperror.php
+ */
+class Yaf_Exception_StartupError extends Yaf_Exception {}
+/**
+ * @link http://www.php.net/manual/en/class.yaf-exception-routefaild.php
+ */
+class Yaf_Exception_RouterFailed extends Yaf_Exception {}
+/**
+ * @link http://www.php.net/manual/en/class.yaf-exception-dispatchfaild.php
+ */
+class Yaf_Exception_DispatchFailed extends Yaf_Exception {}
+/**
+ * @link http://www.php.net/manual/en/class.yaf-exception-loadfaild.php
+ */
+class Yaf_Exception_LoadFailed extends Yaf_Exception {}
+/**
+ * @link http://www.php.net/manual/en/class.yaf-exception-loadfaild-module.php
+ */
+class Yaf_Exception_LoadFailed_Module extends Yaf_Exception_LoadFailed {}
+/**
+ * @link http://www.php.net/manual/en/class.yaf-exception-loadfaild-controller.php
+ */
+class Yaf_Exception_LoadFailed_Controller extends Yaf_Exception_LoadFailed {}
+/**
+ * @link http://www.php.net/manual/en/class.yaf-exception-loadfaild-action.php
+ */
+class Yaf_Exception_LoadFailed_Action extends Yaf_Exception_LoadFailed {}
+/**
+ * @link http://www.php.net/manual/en/class.yaf-exception-loadfaild-view.php
+ */
+class Yaf_Exception_LoadFailed_View extends Yaf_Exception_LoadFailed {}
