@@ -2506,25 +2506,69 @@ abstract class Yaf_Plugin_Abstract {
 	public function preResponse(Yaf_Request_Abstract $request, Yaf_Response_Abstract $response){}
 }
 
+/**
+ * <p>All methods of <b>Yaf_Registry</b> declared as static, making it universally accessible. This provides the ability to get or set any custom data from anyway in your code as necessary.</p>
+ * @link http://il1.php.net/manual/en/class.yaf-registry.php
+ */
 final class Yaf_Registry {
 
-	/* constants */
+	/**
+	 * @var Yaf_Registry
+	 */
+	protected static $_instance;
+	/**
+	 * @var array
+	 */
+	protected $_entries;
 
-	/* properties */
-	protected static $_instance = NULL;
-	protected $_entries = NULL;
-
-	/* methods */
+	/**
+	 * @link http://il1.php.net/manual/en/yaf-registry.construct.php
+	 */
 	private function __construct(){}
-
+	/**
+	 * @link http://il1.php.net/manual/en/yaf-registry.clone.php
+	 */
 	private function __clone(){}
 
+	/**
+	 * Retrieve an item from registry
+	 *
+	 * @link http://il1.php.net/manual/en/yaf-registry.get.php
+	 *
+	 * @param string $name
+	 *
+	 * @return mixed
+	 */
 	public static function get($name){}
 
+	/**
+	 * Check whether an item exists
+	 *
+	 * @link http://il1.php.net/manual/en/yaf-registry.has.php
+	 *
+	 * @param string $name
+	 *
+	 * @return bool
+	 */
 	public static function has($name){}
 
+	/**
+	 * @link http://il1.php.net/manual/en/yaf-registry.set.php
+	 *
+	 * @param string $name
+	 * @param mixed $value
+	 *
+	 * @return bool
+	 */
 	public static function set($name, $value){}
 
+	/**
+	 * @link http://il1.php.net/manual/en/yaf-registry.del.php
+	 *
+	 * @param string $name
+	 *
+	 * @return void|bool
+	 */
 	public static function del($name){}
 }
 
