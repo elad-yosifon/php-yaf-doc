@@ -1333,6 +1333,9 @@ abstract class Yaf_Response_Abstract {
 	public function response(){}
 }
 
+/**
+ *
+ */
 class Yaf_Response_Http extends Yaf_Response_Abstract {
 
 	/**
@@ -1351,6 +1354,9 @@ class Yaf_Response_Http extends Yaf_Response_Abstract {
 	private function __toString(){}
 }
 
+/**
+ *
+ */
 class Yaf_Response_Cli extends Yaf_Response_Abstract {
 
 	/**
@@ -2413,25 +2419,90 @@ final class Yaf_Route_Map implements Yaf_Route_Interface {
 	public function route(Yaf_Request_Abstract $request){}
 }
 
+/**
+ * <p>Plugins allow for easy extensibility and customization of the framework.</p>
+ * <br/>
+ * <p>Plugins are classes. The actual class definition will vary based on the component -- you may need to implement this interface, but the fact remains that the plugin is itself a class.</p>
+ * <br/>
+ * <p>A plugin could be loaded into Yaf by using Yaf_Dispatcher::registerPlugin(), after registered, All the methods which the plugin implemented according to this interface, will be called at the proper time.</p>
+ * @link http://www.php.net/manual/en/class.yaf-plugin-abstract.php
+ */
 abstract class Yaf_Plugin_Abstract {
 
-	/* constants */
-
-	/* properties */
-
-	/* methods */
+	/**
+	 * This is the earliest hook in Yaf plugin hook system, if a custom plugin implement this method, then it will be called before routing a request.
+	 *
+	 * @link http://www.php.net/manual/en/yaf-plugin-abstract.routerstartup.php
+	 *
+	 * @param Yaf_Request_Abstract $request
+	 * @param Yaf_Response_Abstract $response
+	 *
+	 * @return bool true
+	 */
 	public function routerStartup(Yaf_Request_Abstract $request, Yaf_Response_Abstract $response){}
 
+	/**
+	 * This hook will be trigged after the route process finished, this hook is usually used for login check.
+	 *
+	 * @link http://www.php.net/manual/en/yaf-plugin-abstract.routershutdown.php
+	 *
+	 * @param Yaf_Request_Abstract $request
+	 * @param Yaf_Response_Abstract $response
+	 *
+	 * @return bool true
+	 */
 	public function routerShutdown(Yaf_Request_Abstract $request, Yaf_Response_Abstract $response){}
 
+	/**
+	 * @link http://www.php.net/manual/en/yaf-plugin-abstract.dispatchloopstartup.php
+	 *
+	 * @param Yaf_Request_Abstract $request
+	 * @param Yaf_Response_Abstract $response
+	 *
+	 * @return bool true
+	 */
 	public function dispatchLoopStartup(Yaf_Request_Abstract $request, Yaf_Response_Abstract $response){}
 
+	/**
+	 * This is the latest hook in Yaf plugin hook system, if a custom plugin implement this method, then it will be called after the dispatch loop finished.
+	 * 
+	 * @link http://www.php.net/manual/en/yaf-plugin-abstract.dispatchloopshutdown.php
+	 *
+	 * @param Yaf_Request_Abstract $request
+	 * @param Yaf_Response_Abstract $response
+	 *
+	 * @return bool true
+	 */
 	public function dispatchLoopShutdown(Yaf_Request_Abstract $request, Yaf_Response_Abstract $response){}
 
+	/**
+	 * @link http://www.php.net/manual/en/yaf-plugin-abstract.predispatch.php
+	 *
+	 * @param Yaf_Request_Abstract $request
+	 * @param Yaf_Response_Abstract $response
+	 *
+	 * @return bool true
+	 */
 	public function preDispatch(Yaf_Request_Abstract $request, Yaf_Response_Abstract $response){}
 
+	/**
+	 * @link http://www.php.net/manual/en/yaf-plugin-abstract.postdispatch.php
+	 *
+	 * @param Yaf_Request_Abstract $request
+	 * @param Yaf_Response_Abstract $response
+	 *
+	 * @return bool true
+	 */
 	public function postDispatch(Yaf_Request_Abstract $request, Yaf_Response_Abstract $response){}
 
+	/**
+	 * @link http://www.php.net/manual/en/yaf-plugin-abstract.preresponse.php
+	 *
+	 * @param Yaf_Request_Abstract $request
+	 * @param Yaf_Response_Abstract $response
+	 *
+	 * @return bool true
+	 */
 	public function preResponse(Yaf_Request_Abstract $request, Yaf_Response_Abstract $response){}
 }
 
