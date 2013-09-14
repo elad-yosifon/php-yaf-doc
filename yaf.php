@@ -64,7 +64,7 @@ final class Yaf_Application {
 	/**
 	 * @link http://www.php.net/manual/en/yaf-application.construct.php
 	 *
-	 * @param string|array $config - A ini config file path, or a config array
+	 * @param string|array $config A ini config file path, or a config array
 	 * <p>
 	 * If is a ini config file, there should be a section named as the one defined by yaf.environ, which is "product" by default.
 	 * </p>
@@ -104,7 +104,7 @@ final class Yaf_Application {
 	 *    ;defined modules<br/>
 	 *    ap.modules=Index
 	 * </p>
-	 * @param string $envrion - Which section will be loaded as the final config
+	 * @param string $envrion Which section will be loaded as the final config
 	 *
 	 * @throws Yaf_Exception_TypeError|Yaf_Exception_StartupError
 	 */
@@ -125,8 +125,8 @@ final class Yaf_Application {
 	 *
 	 * @link http://www.php.net/manual/en/yaf-application.execute.php
 	 *
-	 * @param callable $entry - a valid callback
-	 * @param string $_ - parameters will pass to the callback
+	 * @param callable $entry a valid callback
+	 * @param string $_ parameters will pass to the callback
 	 */
 	public function execute(callable $entry, $_ = "..."){}
 
@@ -135,7 +135,7 @@ final class Yaf_Application {
 	 *
 	 * @link http://www.php.net/manual/en/yaf-application.app.php
 	 *
-	 * @return Yaf_Application|NULL - an Yaf_Application instance, if no Yaf_Application initialized before, NULL will be returned.
+	 * @return Yaf_Application|NULL an Yaf_Application instance, if no Yaf_Application initialized before, NULL will be returned.
 	 */
 	public static function app(){}
 
@@ -153,7 +153,7 @@ final class Yaf_Application {
 	 *
 	 * @link http://www.php.net/manual/en/yaf-application.bootstrap.php
 	 *
-	 * @param Yaf_Bootstrap_Abstract $bootstrap - A Yaf_Bootstrap_Abstract instance
+	 * @param Yaf_Bootstrap_Abstract $bootstrap A Yaf_Bootstrap_Abstract instance
 	 * @return Yaf_Application
 	 */
 	public function bootstrap(Yaf_Bootstrap_Abstract $bootstrap = NULL){}
@@ -366,7 +366,7 @@ final class Yaf_Dispatcher {
 	 *
 	 * @link http://www.php.net/manual/en/yaf-dispatcher.setview.php
 	 *
-	 * @param Yaf_View_Interface $view - A Yaf_View_Interface instance
+	 * @param Yaf_View_Interface $view A Yaf_View_Interface instance
 	 * @return Yaf_Dispatcher
 	 */
 	public function setView(Yaf_View_Interface $view){}
@@ -408,8 +408,8 @@ final class Yaf_Dispatcher {
 	 *
 	 * @link http://www.php.net/manual/en/yaf-dispatcher.seterrorhandler.php
 	 *
-	 * @param callable $callback - a callable callback
-	 * @param int $error_types - YAF_ERR_* constants mask
+	 * @param callable $callback a callable callback
+	 * @param int $error_types YAF_ERR_* constants mask
 	 *
 	 * @return Yaf_Dispatcher
 	 */
@@ -460,7 +460,7 @@ final class Yaf_Dispatcher {
 	 *
 	 * @link http://www.php.net/manual/en/yaf-dispatcher.autorender.php
 	 *
-	 * @param bool $flag - since 2.2.0, if this parameter is not given, then the current state will be set
+	 * @param bool $flag since 2.2.0, if this parameter is not given, then the current state will be set
 	 * @return Yaf_Dispatcher
 	 */
 	public function autoRender($flag = null){}
@@ -470,7 +470,7 @@ final class Yaf_Dispatcher {
 	 *
 	 * @link http://www.php.net/manual/en/yaf-dispatcher.flushinstantly.php
 	 *
-	 * @param bool $flag - since 2.2.0, if this parameter is not given, then the current state will be set
+	 * @param bool $flag since 2.2.0, if this parameter is not given, then the current state will be set
 	 * @return Yaf_Dispatcher
 	 */
 	public function flushInstantly($flag = null){}
@@ -1344,6 +1344,7 @@ class Yaf_Response_Http extends Yaf_Response_Abstract {
 	 *
 	 */
 	private function __clone(){}
+
 	/**
 	 * @return string
 	 */
@@ -1356,79 +1357,252 @@ class Yaf_Response_Cli extends Yaf_Response_Abstract {
 	 *
 	 */
 	private function __clone(){}
+
 	/**
 	 * @return string
 	 */
 	private function __toString(){}
 }
 
+/**
+ * <p><b>Yaf_Controller_Abstract</b> is the heart of Yaf's system. MVC stands for Model-View-Controller and is a design pattern targeted at separating application logic from display logic.</p>
+ * <br/>
+ * <p>Every custom controller shall inherit <b>Yaf_Controller_Abstract</b>.</p>
+ * <br/>
+ * <p>You will find that you can not define __construct function for your custom controller, thus, <b>Yaf_Controller_Abstract</b> provides a magic method: Yaf_Controller_Abstract::init().</p>
+ * <br/>
+ * <p>If you have defined a init() method in your custom controller, it will be called as long as the controller was instantiated.</p>
+ * <br/>
+ * <p>Action may have arguments, when a request coming, if there are the same name variable in the request parameters(see Yaf_Request_Abstract::getParam()) after routed, Yaf will pass them to the action method (see Yaf_Action_Abstract::execute()).</p>
+ * <br/>
+ * <b>Note:</b>
+ * <p>These arguments are directly fetched without filtering, it should be carefully processed before use them.</p>
+ *
+ * @link http://www.php.net/manual/en/class.yaf-controller-abstract.php
+ */
 abstract class Yaf_Controller_Abstract {
 
-	/* constants */
-
-	/* properties */
-	public $actions = NULL;
-	protected $_module = NULL;
-	protected $_name = NULL;
-	protected $_request = NULL;
-	protected $_response = NULL;
-	protected $_invoke_args = NULL;
-	protected $_view = NULL;
-
-	/* methods */
-	protected function render($tpl, array $parameters = NULL){}
-
-	protected function display($tpl, array $parameters = NULL){}
+	/**
+	 * @see Yaf_Action_Abstract
+	 * @var array You can also define a action method in a separate PHP script by using this property and Yaf_Action_Abstract.
+	 */
+	public $actions;
+	/**
+	 * @var string module name
+	 */
+	protected $_module;
+	/**
+	 * @var string controller name
+	 */
+	protected $_name;
+	/**
+	 * @var Yaf_Request_Abstract current request object
+	 */
+	protected $_request;
+	/**
+	 * @var Yaf_Response_Abstract current response object
+	 */
+	protected $_response;
+	/**
+	 * @var array
+	 */
+	protected $_invoke_args;
+	/**
+	 * @var Yaf_View_Interface view engine object
+	 */
+	protected $_view;
 
 	/**
+	 * @link http://www.php.net/manual/en/yaf-controller-abstract.render.php
+	 *
+	 * @param string $tpl
+	 * @param array $parameters
+	 *
+	 * @return string
+	 */
+	protected function render($tpl, array $parameters = null){ }
+
+	/**
+	 * @link http://www.php.net/manual/en/yaf-controller-abstract.display.php
+	 *
+	 * @param string $tpl
+	 * @param array $parameters
+	 *
+	 * @return bool
+	 */
+	protected function display($tpl, array $parameters = null){ }
+
+	/**
+	 * retrieve current request object
+	 *
+	 * @link http://www.php.net/manual/en/yaf-controller-abstract.getrequest.php
+	 *
 	 * @return Yaf_Request_Abstract
 	 */
-	public function getRequest(){}
+	public function getRequest(){ }
+
 	/**
+	 * retrieve current response object
+	 *
+	 * @link http://www.php.net/manual/en/yaf-controller-abstract.getresponse.php
+	 *
 	 * @return Yaf_Response_Abstract
 	 */
-	public function getResponse(){}
+	public function getResponse(){ }
 
-	public function getModuleName(){}
+	/**
+	 * get the controller's module name
+	 *
+	 * @link http://www.php.net/manual/en/yaf-controller-abstract.getmodulename.php
+	 *
+	 * @return string
+	 */
+	public function getModuleName(){ }
 
-	public function getView(){}
+	/**
+	 * retrieve view engine
+	 *
+	 * @link http://www.php.net/manual/en/yaf-controller-abstract.getview.php
+	 *
+	 * @return Yaf_View_Interface
+	 */
+	public function getView(){ }
 
-	public function initView(array $options = NULL){}
+	/**
+	 * @deprecated not_implemented
+	 * @link http://www.php.net/manual/en/yaf-controller-abstract.initview.php
+	 *
+	 * @param array $options
+	 *
+	 * @return Yaf_Response_Abstract
+	 */
+	public function initView(array $options = null){ }
 
-	public function setViewpath($view_directory){}
+	/**
+	 * @link http://www.php.net/manual/en/yaf-controller-abstract.setviewpath.php
+	 *
+	 * @param string $view_directory
+	 *
+	 * @return bool
+	 */
+	public function setViewpath($view_directory){ }
 
-	public function getViewpath(){}
+	/**
+	 * @link http://www.php.net/manual/en/yaf-controller-abstract.getviewpath.php
+	 *
+	 * @return string
+	 */
+	public function getViewpath(){ }
 
-	public function forward($module, $controller = NULL, $action = NULL, array $paramters = NULL){}
+	/**
+	 * <p>forward current execution process to other action.</p>
+	 * <br/>
+	 * <b>Note:</b>
+	 * <p>this method doesn't switch to the destination action immediately, it will take place after current flow finish.</p>
+	 * <br/>
+	 * <b>Notice, there are 3 available method signatures:</b>
+	 * <p>Yaf_Controller_Abstract::forward ( string $module , string $controller , string $action [, array $parameters ] )</p>
+	 * <p>Yaf_Controller_Abstract::forward ( string $controller , string $action [, array $parameters ] )</p>
+	 * <p>Yaf_Controller_Abstract::forward ( string $action [, array $parameters ] )</p>
+	 *
+	 * @link http://www.php.net/manual/en/yaf-controller-abstract.forward.php
+	 *
+	 * @param string $module destination module name, if NULL was given, then default module name is assumed
+	 * @param string $controller destination controller name
+	 * @param string $action destination action name
+	 * @param array $parameters calling arguments
+	 *
+	 * @return bool return FALSE on failure
+	 */
+	public function forward($module, $controller = null, $action = null, array $parameters = null){ }
 
-	public function redirect($url){}
+	/**
+	 * redirect to a URL by sending a 302 header
+	 *
+	 * @link http://www.php.net/manual/en/yaf-controller-abstract.redirect.php
+	 *
+	 * @param string $url a location URL
+	 *
+	 * @return bool
+	 */
+	public function redirect($url){ }
 
-	public function getInvokeArgs(){}
+	/**
+	 * @link http://www.php.net/manual/en/yaf-controller-abstract.getinvokeargs.php
+	 *
+	 * @return array
+	 */
+	public function getInvokeArgs(){ }
 
-	public function getInvokeArg($name){}
+	/**
+	 * @link http://www.php.net/manual/en/yaf-controller-abstract.getinvokearg.php
+	 * @param string $name
+	 *
+	 * @return null|mixed
+	 */
+	public function getInvokeArg($name){ }
 
-	final public function __construct(){}
+	/**
+	 * <p>Yaf_Controller_Abstract::__construct() is final, which means users can not override it. but users can define <b>Yaf_Controller_Abstract::init()</b>, which will be called after controller object is instantiated.</p>
+	 *
+	 * @link http://www.php.net/manual/en/yaf-controller-abstract.init.php
+	 *
+	 */
+	public function init(){ }
 
-	final private function __clone(){}
+	/**
+	 * <b>Yaf_Controller_Abstract</b>::__construct() is final, which means it can not be overridden. You may want to see Yaf_Controller_Abstract::init() instead.
+	 *
+	 * @see Yaf_Controller_Abstract::init()
+	 * @link http://www.php.net/manual/en/yaf-controller-abstract.construct.php
+	 *
+	 * @param Yaf_Request_Abstract $request
+	 * @param Yaf_Response_Abstract $response
+	 * @param Yaf_View_Interface $view
+	 * @param array $invokeArgs
+	 */
+	final public function __construct(Yaf_Request_Abstract $request, Yaf_Response_Abstract $response, Yaf_View_Interface $view, array $invokeArgs = null){ }
+
+	/**
+	 * @link http://www.php.net/manual/en/yaf-controller-abstract.clone.php
+	 */
+	final private function __clone(){ }
 }
 
+/**
+ * <p>A action can be defined in a separate file in Yaf(see Yaf_Controller_Abstract). that is a action method can also be a <b>Yaf_Action_Abstract</b> class.</P>
+ * <br/>
+ * <p>Since there should be a entry point which can be called by Yaf (as of PHP 5.3, there is a new magic method __invoke, but Yaf is not only works with PHP 5.3+, Yaf choose another magic method execute), you must implement the abstract method Yaf_Action_Abstract::execute() in your custom action class.</p>
+ *
+ * @link http://www.php.net/manual/en/class.yaf-action-abstract.php
+ *
+ */
 abstract class Yaf_Action_Abstract extends Yaf_Controller_Abstract {
 
-	/* constants */
+	/**
+	 * @var Yaf_Controller_Abstract
+	 */
+	protected $_controller;
 
-	/* properties */
-	public $actions = NULL;
-	protected $_module = NULL;
-	protected $_name = NULL;
-	protected $_request = NULL;
-	protected $_response = NULL;
-	protected $_invoke_args = NULL;
-	protected $_view = NULL;
-	protected $_controller = NULL;
-
-	/* methods */
+	/**
+	 * <p>user should always define this method for a action, this is the entry point of an action. <b>Yaf_Action_Abstract::execute()</b> may have arguments.</p>
+	 * <br/>
+	 * <b>Note:</b>
+	 * <p>The value retrieved from the request is not safe. you should do some filtering work before you use it.</p>
+	 * @link http://www.php.net/manual/en/yaf-action-abstract.execute.php
+	 *
+	 * @param mixed ... unlimited number of arguments
+	 * @return mixed
+	 */
 	abstract public function execute();
 
+	/**
+	 * retrieve current controller object.
+	 *
+	 * @link http://www.php.net/manual/en/yaf-action-abstract.getcontroller.php
+	 *
+	 * @return Yaf_Controller_Abstract
+	 */
 	public function getController(){}
 
 }
@@ -1438,7 +1612,10 @@ abstract class Yaf_Action_Abstract extends Yaf_Controller_Abstract {
  */
 abstract class Yaf_Config_Abstract {
 
-	protected $_config = NULL;
+	/**
+	 * @var array
+	 */
+	protected $_config = null;
 	/**
 	 * @var bool
 	 */
@@ -1501,6 +1678,7 @@ class Yaf_Config_Ini extends Yaf_Config_Abstract implements Iterator, Traversabl
 
 	/**
 	 * @see Yaf_Config_Abstract::set
+	 * @deprecated not_implemented
 	 */
 	public function set($name, $value){}
 
@@ -1517,12 +1695,12 @@ class Yaf_Config_Ini extends Yaf_Config_Abstract implements Iterator, Traversabl
 	/**
 	 * @link http://www.php.net/manual/en/yaf-config-ini.construct.php
 	 *
-	 * @param string $config_file - path to an INI configure file
-	 * @param string $section - which section in that INI file you want to be parsed
+	 * @param string $config_file path to an INI configure file
+	 * @param string $section which section in that INI file you want to be parsed
 	 *
 	 * @throws Yaf_Exception_TypeError
 	 */
-	public function __construct($config_file, $section = NULL){}
+	public function __construct($config_file, $section = null){}
 
 	/**
 	 * @link http://www.php.net/manual/en/yaf-config-ini.isset.php
@@ -1557,6 +1735,7 @@ class Yaf_Config_Ini extends Yaf_Config_Abstract implements Iterator, Traversabl
 	public function key(){}
 	/**
 	 * @see ArrayAccess::offsetUnset
+	 * @deprecated not_implemented
 	 */
 	public function offsetUnset($name){}
 	/**
@@ -1611,8 +1790,8 @@ class Yaf_Config_Simple extends Yaf_Config_Abstract implements Iterator, Travers
 	/**
 	 * @link http://www.php.net/manual/en/yaf-config-simple.construct.php
 	 *
-	 * @param string $config_file - path to an INI configure file
-	 * @param string $section - which section in that INI file you want to be parsed
+	 * @param string $config_file path to an INI configure file
+	 * @param string $section which section in that INI file you want to be parsed
 	 *
 	 * @throws Yaf_Exception_TypeError
 	 */
@@ -1719,7 +1898,7 @@ interface Yaf_View_Interface {
 	 *
 	 * @link http://www.php.net/manual/en/yaf-view-interface.setscriptpath.php
 	 *
-	 * @param string $template_dir - An absolute path to the template directory, by default, Yaf_Dispatcher use application.directory . "/views" as this parameter.
+	 * @param string $template_dir An absolute path to the template directory, by default, Yaf_Dispatcher use application.directory . "/views" as this parameter.
 	 */
 	function setScriptPath($template_dir);
 }
@@ -1727,6 +1906,8 @@ interface Yaf_View_Interface {
 /**
  * <b>Yaf_View_Simple</b> is the built-in template engine in Yaf, it is a simple but fast template engine, and only support PHP script template.
  * @link http://www.php.net/manual/en/class.yaf-view-simple.php
+ *
+ * @method void|bool eval(string $tpl_str, array $vars = null) <p>Render a string template and return the result.</p><p>return FALSE on failure</p>
  */
 class Yaf_View_Simple implements Yaf_View_Interface {
 
@@ -1746,9 +1927,8 @@ class Yaf_View_Simple implements Yaf_View_Interface {
 	/**
 	 * @link http://www.php.net/manual/en/yaf-view-simple.construct.php
 	 *
-	 * @param string $template_dir - The base directory of the templates, by default, it is APPLICATOIN . "/views" for Yaf.
-	 * @param array $options - <p>
-	 * Options for the engine, as of Yaf 2.1.13, you can use short tag
+	 * @param string $template_dir The base directory of the templates, by default, it is APPLICATOIN . "/views" for Yaf.
+	 * @param array $options <p>Options for the engine, as of Yaf 2.1.13, you can use short tag
 	 * "<?=$var?>" in your template(regardless of "short_open_tag"),
 	 * so comes a option named "short_tag",  you can switch this off
 	 * to prevent use short_tag in template.
@@ -1769,14 +1949,15 @@ class Yaf_View_Simple implements Yaf_View_Interface {
 	 *
 	 * @link http://www.php.net/manual/en/yaf-view-simple.assign.php
 	 *
-	 * @param string|array $name - A string or an array.<br/>if is string, then the next argument $value is required.
-	 * @param mixed $value - mixed value
+	 * @param string|array $name A string or an array.<br/>if is string, then the next argument $value is required.
+	 * @param mixed $value mixed value
 	 * @return bool
 	 */
 	public function assign($name, $value = NULL){}
 
 	/**
-	 * @todo: document
+	 * @link http://www.php.net/manual/en/yaf-view-simple.render.php
+	 *
 	 * @param string $tpl
 	 * @param array $tpl_vars
 	 *
@@ -1786,31 +1967,91 @@ class Yaf_View_Simple implements Yaf_View_Interface {
 	 */
 	public function render($tpl,array $tpl_vars = NULL){}
 
-	//todo: change to eval
-	public function _eval($tpl_str, $vars = NULL){}
+	/**
+	 * <p>Render a string template and return the result.</p>
+	 *
+	 * @link http://www.php.net/manual/en/yaf-view-simple.eval.php
+	 *
+	 * @param string $tpl_str string template
+	 * @param array $vars
+	 *
+	 * @return void|bool return FALSE on failure
+	 */
+	private function _eval($tpl_str, array $vars = null){}
 
 	/**
-	 * @todo: document
+	 * <p>Render a template and display the result instantly.</p>
+	 *
+	 * @link http://www.php.net/manual/en/yaf-view-simple.display.php
+	 *
 	 * @param string $tpl
 	 * @param array $tpl_vars
 	 *
 	 * @throws Yaf_Exception_LoadFailed_View
 	 *
-	 * @return bool|void
+	 * @return bool
 	 */
-	public function display($tpl, array $tpl_vars = NULL){}
+	public function display($tpl, array $tpl_vars = null){}
 
+	/**
+	 * <p>unlike Yaf_View_Simple::assign(), this method assign a ref value to engine.</p>
+	 * @link http://www.php.net/manual/en/yaf-view-simple.assignref.php
+	 *
+	 * @param string $name A string name which will be used to access the value in the tempalte.
+	 * @param mixed $value mixed value
+	 */
 	public function assignRef($name, &$value){}
 
-	public function clear($name = NULL){}
+	/**
+	 * clear assigned variable
+	 * @link http://www.php.net/manual/en/yaf-view-simple.clear.php
+	 *
+	 * @param string $name assigned variable name. <br/>if empty, will clear all assigned variables.
+	 *
+	 * @return Yaf_View_Simple
+	 */
+	public function clear($name = null){}
 
+	/**
+	 * @link http://www.php.net/manual/en/yaf-view-simple.setscriptpath.php
+	 *
+	 * @param string $template_dir
+	 *
+	 * @return Yaf_View_Simple
+	 */
 	public function setScriptPath($template_dir){}
 
+	/**
+	 * @link http://www.php.net/manual/en/yaf-view-simple.getscriptpath.php
+	 *
+	 * @return string
+	 */
 	public function getScriptPath(){}
 
-	public function __get($name = NULL){}
+	/**
+	 * <p>Retrieve assigned variable</p>
+	 * <br/>
+	 * <b>Note:</b>
+	 * <p>$name parameter can be empty since 2.1.11</p>
+	 * @link http://www.php.net/manual/en/yaf-view-simple.get.php
+	 *
+	 * @param null $name <p>the assigned variable name</p>
+	 * <br/>
+	 * <p>if this is empty, all assigned variables will be returned</p>
+	 *
+	 * @return mixed
+	 */
+	public function __get($name = null){}
 
-	public function __set($name, $value = NULL){}
+	/**
+	 * <p>This is a alternative and easier way to Yaf_View_Simple::assign().</p>
+	 *
+	 * @link http://www.php.net/manual/en/yaf-view-simple.set.php
+	 *
+	 * @param string $name A string value name.
+	 * @param mixed $value mixed value
+	 */
+	public function __set($name, $value = null){}
 }
 
 /**
@@ -2057,25 +2298,47 @@ final class Yaf_Session implements Iterator, Traversable, ArrayAccess, Countable
 
 	public function del($name){}
 
+	/**
+	 * @see Countable::count
+	 */
 	public function count(){}
 
+	/**
+	 * @see Iterator::rewind
+	 */
 	public function rewind(){}
-
-	public function next(){}
-
+	/**
+	 * @see Iterator::current
+	 */
 	public function current(){}
-
-	public function key(){}
-
+	/**
+	 * @see Iterator::next
+	 */
+	public function next(){}
+	/**
+	 * @see Iterator::valid
+	 */
 	public function valid(){}
-
-	public function offsetGet($name){}
-
-	public function offsetSet($name, $value){}
-
-	public function offsetExists($name){}
-
+	/**
+	 * @see Iterator::key
+	 */
+	public function key(){}
+	/**
+	 * @see ArrayAccess::offsetUnset
+	 */
 	public function offsetUnset($name){}
+	/**
+	 * @see ArrayAccess::offsetGet
+	 */
+	public function offsetGet($name){}
+	/**
+	 * @see ArrayAccess::offsetExists
+	 */
+	public function offsetExists($name){}
+	/**
+	 * @see ArrayAccess::offsetSet
+	 */
+	public function offsetSet($name, $value){}
 
 	public function __get($name){}
 
