@@ -2508,7 +2508,7 @@ abstract class Yaf_Plugin_Abstract {
 
 /**
  * <p>All methods of <b>Yaf_Registry</b> declared as static, making it universally accessible. This provides the ability to get or set any custom data from anyway in your code as necessary.</p>
- * @link http://il1.php.net/manual/en/class.yaf-registry.php
+ * @link http://www.php.net/manual/en/class.yaf-registry.php
  */
 final class Yaf_Registry {
 
@@ -2522,18 +2522,18 @@ final class Yaf_Registry {
 	protected $_entries;
 
 	/**
-	 * @link http://il1.php.net/manual/en/yaf-registry.construct.php
+	 * @link http://www.php.net/manual/en/yaf-registry.construct.php
 	 */
 	private function __construct(){}
 	/**
-	 * @link http://il1.php.net/manual/en/yaf-registry.clone.php
+	 * @link http://www.php.net/manual/en/yaf-registry.clone.php
 	 */
 	private function __clone(){}
 
 	/**
 	 * Retrieve an item from registry
 	 *
-	 * @link http://il1.php.net/manual/en/yaf-registry.get.php
+	 * @link http://www.php.net/manual/en/yaf-registry.get.php
 	 *
 	 * @param string $name
 	 *
@@ -2544,7 +2544,7 @@ final class Yaf_Registry {
 	/**
 	 * Check whether an item exists
 	 *
-	 * @link http://il1.php.net/manual/en/yaf-registry.has.php
+	 * @link http://www.php.net/manual/en/yaf-registry.has.php
 	 *
 	 * @param string $name
 	 *
@@ -2553,7 +2553,7 @@ final class Yaf_Registry {
 	public static function has($name){}
 
 	/**
-	 * @link http://il1.php.net/manual/en/yaf-registry.set.php
+	 * @link http://www.php.net/manual/en/yaf-registry.set.php
 	 *
 	 * @param string $name
 	 * @param mixed $value
@@ -2563,7 +2563,7 @@ final class Yaf_Registry {
 	public static function set($name, $value){}
 
 	/**
-	 * @link http://il1.php.net/manual/en/yaf-registry.del.php
+	 * @link http://www.php.net/manual/en/yaf-registry.del.php
 	 *
 	 * @param string $name
 	 *
@@ -2572,34 +2572,100 @@ final class Yaf_Registry {
 	public static function del($name){}
 }
 
+/**
+ * @link http://www.php.net/manual/en/class.yaf-session.php
+ * @version 2.2.9
+ */
 final class Yaf_Session implements Iterator, Traversable, ArrayAccess, Countable {
 
-	/* constants */
+	/**
+	 * @var Yaf_Session
+	 */
+	protected static $_instance;
+	/**
+	 * @var array
+	 */
+	protected $_session;
+	/**
+	 * @var bool
+	 */
+	protected $_started = true;
 
-	/* properties */
-	protected static  $_instance = NULL;
-	protected $_session = NULL;
-	protected $_started = "";
-
-	/* methods */
+	/**
+	 * @link http://www.php.net/manual/en/yaf-session.construct.php
+	 */
 	private function __construct(){}
 
+	/**
+	 * @link http://www.php.net/manual/en/yaf-session.clone.php
+	 */
 	private function __clone(){}
 
+	/**
+	 * @link http://www.php.net/manual/en/yaf-session.sleep.php
+	 */
 	private function __sleep(){}
 
+	/**
+	 * @link http://www.php.net/manual/en/yaf-session.wakeup.php
+	 */
 	private function __wakeup(){}
 
+	/**
+	 * @link http://www.php.net/manual/en/yaf-session.getinstance.php
+	 *
+	 * @return Yaf_Session
+	 */
 	public static function getInstance(){}
 
+	/**
+	 * @link http://www.php.net/manual/en/yaf-session.start.php
+	 *
+	 * @return Yaf_Session
+	 */
 	public function start(){}
 
+//	/**
+//	 * @since 2.2.10
+//	 * @link http://www.php.net/manual/en/yaf-session.clear.php
+//	 */
+//	public function clear(){}
+
+	/**
+	 * @link http://www.php.net/manual/en/yaf-session.get.php
+	 *
+	 * @param string $name
+	 *
+	 * @return mixed
+	 */
 	public function get($name){}
 
+	/**
+	 * @link http://www.php.net/manual/en/yaf-session.has.php
+	 *
+	 * @param string $name
+	 *
+	 * @return bool
+	 */
 	public function has($name){}
 
+	/**
+	 * @link http://www.php.net/manual/en/yaf-session.set.php
+	 *
+	 * @param string $name
+	 * @param mixed $value
+	 *
+	 * @return bool|Yaf_Session return FALSE on failure
+	 */
 	public function set($name, $value){}
 
+	/**
+	 * @link http://www.php.net/manual/en/yaf-session.del.php
+	 *
+	 * @param string $name
+	 *
+	 * @return bool|Yaf_Session return FALSE on failure
+	 */
 	public function del($name){}
 
 	/**
@@ -2644,12 +2710,24 @@ final class Yaf_Session implements Iterator, Traversable, ArrayAccess, Countable
 	 */
 	public function offsetSet($name, $value){}
 
+	/**
+	 * @see Yaf_Session::get()
+	 */
 	public function __get($name){}
 
+	/**
+	 * @see Yaf_Session::has()
+	 */
 	public function __isset($name){}
 
+	/**
+	 * @see Yaf_Session::set()
+	 */
 	public function __set($name, $value){}
 
+	/**
+	 * @see Yaf_Session::del()
+	 */
 	public function __unset($name){}
 }
 
