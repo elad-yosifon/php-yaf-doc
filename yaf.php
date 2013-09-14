@@ -52,7 +52,7 @@ final class Yaf_Application {
 	protected $_environ = YAF_ENVIRON;
 	/**
 	 * @since 2.1.2
-	 * @var string
+	 * @var int
 	 */
 	protected $_err_no = 0;
 	/**
@@ -193,7 +193,6 @@ final class Yaf_Application {
 	public function setAppDirectory($directory){}
 
 	/**
-	 *
 	 * @since 2.1.4
 	 * @link http://www.php.net/manual/en/yaf-application.getappdirectory.php
 	 *
@@ -202,7 +201,6 @@ final class Yaf_Application {
 	public function getAppDirectory(){}
 
 	/**
-	 *
 	 * @since 2.1.2
 	 * @link http://www.php.net/manual/en/yaf-application.getlasterrorno.php
 	 *
@@ -211,7 +209,6 @@ final class Yaf_Application {
 	public function getLastErrorNo(){}
 
 	/**
-	 *
 	 * @since 2.1.2
 	 * @link http://www.php.net/manual/en/yaf-application.getlasterrormsg.php
 	 *
@@ -1189,59 +1186,172 @@ class Yaf_Request_Simple extends Yaf_Request_Abstract {
 	private function __clone(){}
 }
 
+/**
+ * @link http://www.php.net/manual/en/class.yaf-response-abstract.php
+ */
 abstract class Yaf_Response_Abstract {
 
-	/* constants */
+	const DEFAULT_BODY = "content";
+	/**
+	 * @var string
+	 */
+	protected $_header;
+	/**
+	 * @var string
+	 */
+	protected $_body;
+	/**
+	 * @var bool
+	 */
+	protected $_sendheader;
 
-	/* properties */
-	protected $_header = NULL;
-	protected $_body = NULL;
-	protected $_sendheader = "";
-
-	/* methods */
+	/**
+	 * @link http://www.php.net/manual/en/yaf-response-abstract.construct.php
+	 */
 	public function __construct(){}
-
+	/**
+	 * @link http://www.php.net/manual/en/yaf-response-abstract.destruct.php
+	 */
 	public function __destruct(){}
-
+	/**
+	 * @link http://www.php.net/manual/en/yaf-response-abstract.clone.php
+	 */
 	private function __clone(){}
-
+	/**
+	 * @link http://www.php.net/manual/en/yaf-response-abstract.tostring.php
+	 */
 	private function __toString(){}
 
 	/**
+	 * Set content to response
+	 *
+	 * @link http://www.php.net/manual/en/yaf-response-abstract.setbody.php
+	 *
+	 * @param string $content content string
+	 * @param string $key <p>the content key, you can set a content with a key, if you don't specific, then Yaf_Response_Abstract::DEFAULT_BODY will be used</p>
+	 * <br/>
+	 * <b>Note:</b>
+	 * <p>this parameter is introduced as of 2.2.0</p>
+	 *
 	 * @return bool
 	 */
-	public function setBody(){}
+	public function setBody($content,$key = self::DEFAULT_BODY){}
 
-	public function appendBody(){}
+	/**
+	 * append a content to a exists content block
+	 *
+	 * @link http://www.php.net/manual/en/yaf-response-abstract.appendbody.php
+	 *
+	 * @param string $content content string
+	 * @param string $key <p>the content key, you can set a content with a key, if you don't specific, then Yaf_Response_Abstract::DEFAULT_BODY will be used</p>
+	 * <br/>
+	 * <b>Note:</b>
+	 * <p>this parameter is introduced as of 2.2.0</p>
+	 *
+	 * @return bool
+	 */
+	public function appendBody($content,$key = self::DEFAULT_BODY){}
+	/**
+	 * prepend a content to a exists content block
+	 *
+	 * @link http://www.php.net/manual/en/yaf-response-abstract.prependbody.php
+	 *
+	 * @param string $content content string
+	 * @param string $key <p>the content key, you can set a content with a key, if you don't specific, then Yaf_Response_Abstract::DEFAULT_BODY will be used</p>
+	 * <br/>
+	 * <b>Note:</b>
+	 * <p>this parameter is introduced as of 2.2.0</p>
+	 *
+	 * @return bool
+	 */
+	public function prependBody($content,$key = self::DEFAULT_BODY){}
 
-	public function prependBody(){}
+	/**
+	 * Clear existing content
+	 *
+	 * @link http://www.php.net/manual/en/yaf-response-abstract.clearbody.php
+	 *
+	 * @param string $key <p>the content key, you can set a content with a key, if you don't specific, then Yaf_Response_Abstract::DEFAULT_BODY will be used</p>
+	 * <br/>
+	 * <b>Note:</b>
+	 * <p>this parameter is introduced as of 2.2.0</p>
+	 *
+	 * @return bool
+	 */
+	public function clearBody($key = self::DEFAULT_BODY){}
 
-	public function clearBody(){}
+	/**
+	 * Retrieve an existing content
+	 *
+	 * @link http://www.php.net/manual/en/yaf-response-abstract.getbody.php
+	 *
+	 * @param null|string $key <p>the content key, if you don't specific, then Yaf_Response_Abstract::DEFAULT_BODY will be used. if you pass in a NULL, then all contents will be returned as a array</p>
+	 * <br/>
+	 * <b>Note:</b>
+	 * <p>this parameter is introduced as of 2.2.0</p>
+	 *
+	 * @return mixed
+	 */
+	public function getBody($key = self::DEFAULT_BODY){}
 
-	public function getBody(){}
-
+	/**
+	 * @deprecated not_implemented
+	 * @link http://www.php.net/manual/en/yaf-response-abstract.setheader.php
+	 */
 	public function setHeader(){}
 
+	/**
+	 * @deprecated not_implemented
+	 * @link http://www.php.net/manual/en/yaf-response-abstract.setallheaders.php
+	 */
 	protected function setAllHeaders(){}
-
+	/**
+	 * @deprecated not_implemented
+	 * @link http://www.php.net/manual/en/yaf-response-abstract.getheader.php
+	 */
 	public function getHeader(){}
-
+	/**
+	 * @deprecated not_implemented
+	 * @link http://www.php.net/manual/en/yaf-response-abstract.clearheaders.php
+	 */
 	public function clearHeaders(){}
 
-	public function setRedirect(){}
+	/**
+	 * @link http://www.php.net/manual/en/yaf-response-abstract.setredirect.php
+	 *
+	 * @param string $url
+	 */
+	public function setRedirect($url){}
 
+	/**
+	 * send response
+	 *
+	 * @link http://www.php.net/manual/en/yaf-response-abstract.response.php
+	 * 
+	 * @return bool
+	 */
 	public function response(){}
 }
 
 class Yaf_Response_Http extends Yaf_Response_Abstract {
 
-	/* constants */
 
-	/* properties */
-	protected $_header = NULL;
-	protected $_body = NULL;
-	protected $_sendheader = "1";
-	protected $_response_code = "200";
+	/**
+	 * @var string
+	 */
+	protected $_header;
+	/**
+	 * @var string
+	 */
+	protected $_body;
+	/**
+	 * @var bool
+	 */
+	protected $_sendheader = true;
+	/**
+	 * @var int
+	 */
+	protected $_response_code = 200;
 
 	/* methods */
 	public function __construct(){}
