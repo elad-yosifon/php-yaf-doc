@@ -1335,104 +1335,31 @@ abstract class Yaf_Response_Abstract {
 
 class Yaf_Response_Http extends Yaf_Response_Abstract {
 
-
-	/**
-	 * @var string
-	 */
-	protected $_header;
-	/**
-	 * @var string
-	 */
-	protected $_body;
-	/**
-	 * @var bool
-	 */
-	protected $_sendheader = true;
 	/**
 	 * @var int
 	 */
 	protected $_response_code = 200;
 
-	/* methods */
-	public function __construct(){}
-
-	public function __destruct(){}
-
-	private function __clone(){}
-
-	private function __toString()
-	{
-		return '';
-	}
-
 	/**
-	 * @return bool
+	 *
 	 */
-	public function setBody(){}
-
-	public function appendBody(){}
-
-	public function prependBody(){}
-
-	public function clearBody(){}
-
-	public function getBody(){}
-
-	public function setHeader(){}
-
-	protected function setAllHeaders(){}
-
-	public function getHeader(){}
-
-	public function clearHeaders(){}
-
-	public function setRedirect(){}
-
-	public function response(){}
+	private function __clone(){}
+	/**
+	 * @return string
+	 */
+	private function __toString(){}
 }
 
 class Yaf_Response_Cli extends Yaf_Response_Abstract {
 
-	/* constants */
-
-	/* properties */
-	protected $_header = NULL;
-	protected $_body = NULL;
-	protected $_sendheader = "";
-
-	/* methods */
-	public function __construct(){}
-
-	public function __destruct(){}
-
+	/**
+	 *
+	 */
 	private function __clone(){}
-
-	private function __toString()
-	{
-		return '';
-	}
-
-	public function setBody(){}
-
-	public function appendBody(){}
-
-	public function prependBody(){}
-
-	public function clearBody(){}
-
-	public function getBody(){}
-
-	public function setHeader(){}
-
-	protected function setAllHeaders(){}
-
-	public function getHeader(){}
-
-	public function clearHeaders(){}
-
-	public function setRedirect(){}
-
-	public function response(){}
+	/**
+	 * @return string
+	 */
+	private function __toString(){}
 }
 
 abstract class Yaf_Controller_Abstract {
