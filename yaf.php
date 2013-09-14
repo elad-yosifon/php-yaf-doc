@@ -1913,7 +1913,14 @@ interface Yaf_View_Interface {
  * <b>Yaf_View_Simple</b> is the built-in template engine in Yaf, it is a simple but fast template engine, and only support PHP script template.
  * @link http://www.php.net/manual/en/class.yaf-view-simple.php
  *
- * @method void|bool eval(string $tpl_str, array $vars = null) <p>Render a string template and return the result.</p><p>return FALSE on failure</p>
+ * @method void|bool eval(string $tpl_str, array $vars = null) <p>Render a string template and return the result.</p>
+ *
+ *  @link http://www.php.net/manual/en/yaf-view-simple.eval.php
+ *
+ *  @param string $tpl_str string template
+ *  @param array $vars
+ *
+ *  @return void|bool return FALSE on failure
  */
 class Yaf_View_Simple implements Yaf_View_Interface {
 
@@ -1972,18 +1979,6 @@ class Yaf_View_Simple implements Yaf_View_Interface {
 	 * @return string|void
 	 */
 	public function render($tpl,array $tpl_vars = NULL){}
-
-	/**
-	 * <p>Render a string template and return the result.</p>
-	 *
-	 * @link http://www.php.net/manual/en/yaf-view-simple.eval.php
-	 *
-	 * @param string $tpl_str string template
-	 * @param array $vars
-	 *
-	 * @return void|bool return FALSE on failure
-	 */
-	private function _eval($tpl_str, array $vars = null){}
 
 	/**
 	 * <p>Render a template and display the result instantly.</p>
