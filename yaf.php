@@ -13,6 +13,8 @@ define('YAF_ERR_CALL_FAILED', 519, true);
 define('YAF_ERR_AUTOLOAD_FAILED', 520, true);
 define('YAF_ERR_TYPE_ERROR', 521, true);
 
+//================================================
+
 /**
  * Yaf_Application provides a bootstrapping facility for applications which provides reusable resources, common- and module-based bootstrap classes and dependency checking.
  * <br/>
