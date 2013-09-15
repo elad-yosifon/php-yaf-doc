@@ -39,12 +39,11 @@ class Simple extends \Yaf\Config_Abstract implements \Iterator, \Traversable, \A
 	/**
 	 * @link http://www.php.net/manual/en/yaf-config-simple.construct.php
 	 *
-	 * @param string $config_file path to an INI configure file
-	 * @param string $section which section in that INI file you want to be parsed
+	 * @param array $array
+	 * @param string $readonly
 	 *
-	 * @throws\Yaf\Exception\TypeError
 	 */
-	public function __construct($config_file, $section = null){ }
+	public function __construct(array $array, $readonly = null){ }
 
 	/**
 	 * @link http://www.php.net/manual/en/yaf-config-simple.isset.php
