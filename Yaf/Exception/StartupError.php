@@ -2,7 +2,7 @@
 namespace Yaf\Exception ;
 
 /**
- * @see Yaf_Exception_StartupError
+ * @link http://www.php.net/manual/en/class.yaf-exception-startuperror.php
  */
 class StartupError extends \Yaf\Exception {
 

@@ -2,31 +2,47 @@
 namespace Yaf ;
 
 /**
- * @see Yaf_Config_Abstract
+ * @link http://www.php.net/manual/en/class.yaf-config-abstract.php
  */
 abstract class Config_Abstract {
-    /**
-     * @see Yaf_Config_Abstract::$_config
-     */
-    protected $_config = null;
-    /**
-     * @see Yaf_Config_Abstract::$_readonly
-     */
-    protected $_readonly = true;
-    /**
-     * @see Yaf_Config_Abstract::get()
-     */
-    abstract public function get($name = null);
-    /**
-     * @see Yaf_Config_Abstract::set()
-     */
-    abstract public function set($name, $value);
-    /**
-     * @see Yaf_Config_Abstract::readonly()
-     */
-    abstract public function readonly();
-    /**
-     * @see Yaf_Config_Abstract::toArray()
-     */
-    abstract public function toArray();
+
+	/**
+	 * @var array
+	 */
+	protected $_config = null;
+	/**
+	 * @var bool
+	 */
+	protected $_readonly = true;
+
+	/**
+	 * @link http://www.php.net/manual/en/yaf-config-abstract.get.php
+	 *
+	 * @param string $name
+	 * @return mixed
+	 */
+	abstract public function get($name = null);
+
+	/**
+	 * @link http://www.php.net/manual/en/yaf-config-abstract.set.php
+	 *
+	 * @param string $name
+	 * @param mixed $value
+	 * @return \Yaf\Config_Abstract
+	 */
+	abstract public function set($name, $value);
+
+	/**
+	 * @link http://www.php.net/manual/en/yaf-config-abstract.readonly.php
+	 *
+	 * @return bool
+	 */
+	abstract public function readonly();
+
+	/**
+	 * @link http://www.php.net/manual/en/yaf-config-abstract.toarray.php
+	 *
+	 * @return array
+	 */
+	abstract public function toArray();
 }

@@ -2,7 +2,7 @@
 namespace Yaf\Exception ;
 
 /**
- * @see Yaf_Exception_RouterFailed
+ * @link http://www.php.net/manual/en/class.yaf-exception-routefaild.php
  */
 class RouterFailed extends \Yaf\Exception {
 

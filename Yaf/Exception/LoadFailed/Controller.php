@@ -2,7 +2,7 @@
 namespace Yaf\Exception\LoadFailed ;
 
 /**
- * @see Yaf_Exception_LoadFailed_Controller
+ * @link http://www.php.net/manual/en/class.yaf-exception-loadfaild-controller.php
  */
 class Controller extends \Yaf\Exception\LoadFailed {
 

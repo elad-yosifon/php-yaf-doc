@@ -2,15 +2,34 @@
 namespace Yaf ;
 
 /**
- * @see Yaf_Route_Static
+ * <p>by default,\Yaf\Router only have a <b>\Yaf\Route_Static</b> as its default route.</p>
+ * <br/>
+ * <p><b>\Yaf\Route_Static</b> is designed to handle 80% of normal requirements.</p>
+ * <br/>
+ * <b>Note:</b>
+ * <p> it is unnecessary to instance a <b>\Yaf\Route_Static</b>, also unnecessary to add it into\Yaf\Router's routes stack, since there is always be one in\Yaf\Router's routes stack, and always be called at the last time.</p>
+ *
+ * @link http://www.php.net/manual/en/class.yaf-route-static.php
+ *
  */
 class Route_Static implements \Yaf\Route_Interface {
-    /**
-     * @see Yaf_Route_Static::match()
-     */
-    public function match($uri){ }
-    /**
-     * @see Yaf_Route_Static::route()
-     */
-    public function route(\Yaf\Request_Abstract $request){ }
+
+	/**
+	 * @deprecated not_implemented
+	 * @link http://www.php.net/manual/en/yaf-route-static.match.php
+	 *
+	 * @param string $uri
+	 *
+	 * @return bool
+	 */
+	public function match($uri){ }
+
+	/**
+	 * @link http://www.php.net/manual/en/yaf-route-static.route.php
+	 *
+	 * @param \Yaf\Request_Abstract $request
+	 *
+	 * @return bool always TRUE
+	 */
+	public function route(\Yaf\Request_Abstract $request){ }
 }

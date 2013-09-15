@@ -2,7 +2,7 @@
 namespace Yaf\Exception ;
 
 /**
- * @see Yaf_Exception_TypeError
+ * @link http://www.php.net/manual/en/class.yaf-exception-typeerror.php
  */
 class TypeError extends \Yaf\Exception {
 

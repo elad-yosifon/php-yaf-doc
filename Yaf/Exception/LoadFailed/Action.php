@@ -2,7 +2,7 @@
 namespace Yaf\Exception\LoadFailed ;
 
 /**
- * @see Yaf_Exception_LoadFailed_Action
+ * @link http://www.php.net/manual/en/class.yaf-exception-loadfaild-action.php
  */
 class Action extends \Yaf\Exception\LoadFailed {
 

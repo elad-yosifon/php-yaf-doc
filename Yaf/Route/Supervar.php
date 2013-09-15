@@ -2,19 +2,32 @@
 namespace Yaf\Route ;
 
 /**
- * @see Yaf_Route_Supervar
+ * @link http://www.php.net/manual/en/class.yaf-route-supervar.php
  */
 final class Supervar implements \Yaf\Route_Interface {
-    /**
-     * @see Yaf_Route_Supervar::$_var_name
-     */
-    protected $_var_name;
-    /**
-     * @see Yaf_Route_Supervar::__construct()
-     */
-    public function __construct($supervar_name){ }
-    /**
-     * @see Yaf_Route_Supervar::route()
-     */
-    public function route(\Yaf\Request_Abstract $request){ }
+
+	/**
+	 * @var string
+	 */
+	protected $_var_name;
+
+	/**
+	 * <p>\Yaf\Route\Supervar is similar to\Yaf\Route_Static, the difference is that \Yaf\Route\Supervar will look for path info in query string, and the parameter supervar_name is the key.</p>
+	 *
+	 * @link http://www.php.net/manual/en/yaf-route-supervar.construct.php
+	 *
+	 * @param string $supervar_name The name of key.
+	 *
+	 * @throws\Yaf\Exception\TypeError
+	 */
+	public function __construct($supervar_name){ }
+
+	/**
+	 * @link http://www.php.net/manual/en/yaf-route-supervar.route.php
+	 *
+	 * @param \Yaf\Request_Abstract $request
+	 *
+	 * @return bool If there is a key(which was defined in \Yaf\Route\Supervar::__construct()) in $_GET, return TRUE. otherwise return FALSE.
+	 */
+	public function route(\Yaf\Request_Abstract $request){ }
 }
