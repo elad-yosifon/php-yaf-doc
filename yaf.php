@@ -1822,10 +1822,13 @@ abstract class Yaf_Response_Abstract {
 	public function getHeader($name = null){ }
 
 	/**
-	 * @deprecated not_implemented
 	 * @link http://www.php.net/manual/en/yaf-response-abstract.clearheaders.php
+	 *
+	 * @param string $name
+	 *
+	 * @return Yaf_Response_Abstract|false
 	 */
-	public function clearHeaders(){ }
+	public function clearHeaders($name = null){ }
 
 	/**
 	 * @link http://www.php.net/manual/en/yaf-response-abstract.setredirect.php
