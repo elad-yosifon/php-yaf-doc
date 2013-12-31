@@ -2756,10 +2756,9 @@ final class Yaf_Route_Map implements Yaf_Route_Interface {
 	 */
 	protected $_ctl_router = '';
 	/**
-	 * @fixme: typo=>should be $_delimiter
 	 * @var string
 	 */
-	protected $_delimeter;
+	protected $_delimiter;
 
 	/**
 	 * @link http://www.php.net/manual/en/yaf-route-map.construct.php
