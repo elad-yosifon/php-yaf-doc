@@ -112,44 +112,4 @@ abstract class Response_Abstract {
 	 * @return mixed
 	 */
 	public function getBody($key = self::DEFAULT_BODY){ }
-
-	/**
-	 * @deprecated not_implemented
-	 * @link http://www.php.net/manual/en/yaf-response-abstract.setheader.php
-	 */
-	public function setHeader(){ }
-
-	/**
-	 * @deprecated not_implemented
-	 * @link http://www.php.net/manual/en/yaf-response-abstract.setallheaders.php
-	 */
-	protected function setAllHeaders(){ }
-
-	/**
-	 * @deprecated not_implemented
-	 * @link http://www.php.net/manual/en/yaf-response-abstract.getheader.php
-	 */
-	public function getHeader(){ }
-
-	/**
-	 * @deprecated not_implemented
-	 * @link http://www.php.net/manual/en/yaf-response-abstract.clearheaders.php
-	 */
-	public function clearHeaders(){ }
-
-	/**
-	 * @link http://www.php.net/manual/en/yaf-response-abstract.setredirect.php
-	 *
-	 * @param string $url
-	 */
-	public function setRedirect($url){ }
-
-	/**
-	 * send response
-	 *
-	 * @link http://www.php.net/manual/en/yaf-response-abstract.response.php
-	 *
-	 * @return bool
-	 */
-	public function response(){ }
 }

@@ -56,7 +56,7 @@ class Simple implements \Yaf\View_Interface {
 	 *
 	 * @param string|array $name A string or an array.<br/>if is string, then the next argument $value is required.
 	 * @param mixed $value mixed value
-	 * @return bool
+	 * @return \Yaf\View\Simple
 	 */
 	public function assign($name, $value = null){ }
 
@@ -92,6 +92,8 @@ class Simple implements \Yaf\View_Interface {
 	 *
 	 * @param string $name A string name which will be used to access the value in the template.
 	 * @param mixed $value mixed value
+	 *
+	 * @return \Yaf\View\Simple
 	 */
 	public function assignRef($name, &$value){ }
 
