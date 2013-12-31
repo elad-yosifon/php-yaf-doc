@@ -1804,16 +1804,22 @@ abstract class Yaf_Response_Abstract {
 	public function setHeader($name,$value,$replace = false,$response_code = 200){ }
 
 	/**
-	 * @deprecated not_implemented
 	 * @link http://www.php.net/manual/en/yaf-response-abstract.setallheaders.php
+	 *
+	 * @param array $headers
+	 *
+	 * @return bool
 	 */
-	protected function setAllHeaders(){ }
+	protected function setAllHeaders(array $headers){ }
 
 	/**
-	 * @deprecated not_implemented
 	 * @link http://www.php.net/manual/en/yaf-response-abstract.getheader.php
+	 *
+	 * @param string $name
+	 *
+	 * @return mixed
 	 */
-	public function getHeader(){ }
+	public function getHeader($name = null){ }
 
 	/**
 	 * @deprecated not_implemented
