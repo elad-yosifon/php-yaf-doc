@@ -1,6 +1,6 @@
 <?php
 
-define('YAF_VERSION', '2.2.9', true);
+define('PHP_YAF_VERSION', '2.2.10', true);
 define('YAF_ENVIRON', 'product', true);
 define('YAF_ERR_STARTUP_FAILED', 512, true);
 define('YAF_ERR_ROUTE_FAILED', 513, true);
