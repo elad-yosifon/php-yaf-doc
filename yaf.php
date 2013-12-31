@@ -1792,10 +1792,16 @@ abstract class Yaf_Response_Abstract {
 	public function getBody($key = self::DEFAULT_BODY){ }
 
 	/**
-	 * @deprecated not_implemented
 	 * @link http://www.php.net/manual/en/yaf-response-abstract.setheader.php
+	 *
+	 * @param string $name
+	 * @param string $value
+	 * @param bool $replace
+	 * @param int $response_code
+	 *
+	 * @return bool
 	 */
-	public function setHeader(){ }
+	public function setHeader($name,$value,$replace = false,$response_code = 200){ }
 
 	/**
 	 * @deprecated not_implemented
