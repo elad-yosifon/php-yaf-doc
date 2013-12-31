@@ -1790,22 +1790,6 @@ abstract class Yaf_Response_Abstract {
 	 * @return mixed
 	 */
 	public function getBody($key = self::DEFAULT_BODY){ }
-
-	/**
-	 * @link http://www.php.net/manual/en/yaf-response-abstract.setredirect.php
-	 *
-	 * @param string $url
-	 */
-	public function setRedirect($url){ }
-
-	/**
-	 * send response
-	 *
-	 * @link http://www.php.net/manual/en/yaf-response-abstract.response.php
-	 *
-	 * @return bool
-	 */
-	public function response(){ }
 }
 
 /**
@@ -1952,6 +1936,24 @@ class Yaf_Response_Http extends Yaf_Response_Abstract {
 	 * @return Yaf_Response_Abstract|false
 	 */
 	public function clearHeaders($name = null){ }
+
+	/**
+	 * @link http://www.php.net/manual/en/yaf-response-abstract.setredirect.php
+	 *
+	 * @param string $url
+	 *
+	 * @return bool
+	 */
+	public function setRedirect($url){ }
+
+	/**
+	 * send response
+	 *
+	 * @link http://www.php.net/manual/en/yaf-response-abstract.response.php
+	 *
+	 * @return bool
+	 */
+	public function response(){ }
 }
 
 /**
