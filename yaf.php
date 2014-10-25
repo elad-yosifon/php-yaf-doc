@@ -1,6 +1,6 @@
 <?php
 
-define('PHP_YAF_VERSION', '2.2.10', true);
+define('YAF_VERSION', '2.3.3', true);
 define('YAF_ENVIRON', 'product', true);
 define('YAF_ERR_STARTUP_FAILED', 512, true);
 define('YAF_ERR_ROUTE_FAILED', 513, true);
@@ -1868,6 +1868,19 @@ interface Yaf_Route_Interface {
 	 * @return bool
 	 */
 	function route(Yaf_Request_Abstract $request);
+
+	/**
+	 * <p><b>Yaf_Route_Interface::assemble()</b> - assemble a request<br/>
+	 * <p>this method returns a url according to the argument info, and append query strings to the url according to the argument query.</p>
+	 * <p>a route should implement this method according to its own route rules, and do a reverse progress.</p>
+	 *
+	 * @link http://www.php.net/manual/en/yaf-route-interface.assemble.php
+	 *
+	 * @param array $info
+	 * @param array $query
+	 * @return bool
+	 */
+	function assemble(array $info, array $query = null);
 }
 
 /**
@@ -2571,6 +2584,17 @@ class Yaf_Route_Static implements Yaf_Route_Interface {
 	 * @return bool always TRUE
 	 */
 	public function route(Yaf_Request_Abstract $request){ }
+
+	/**
+	 * <p><b>Yaf_Route_Static::assemble()</b> - Assemble a url
+	 *
+	 * @link http://www.php.net/manual/en/yaf-route-static.assemble.php
+	 *
+	 * @param array $info
+	 * @param array $query
+	 * @return bool
+	 */
+	public function assemble(array $info, array $query = null){ }
 }
 
 /**
@@ -2620,6 +2644,17 @@ final class Yaf_Route_Simple implements Yaf_Route_Interface {
 	 * @return bool always TRUE
 	 */
 	public function route(Yaf_Request_Abstract $request){ }
+
+	/**
+	 * <p><b>Yaf_Route_Simple::assemble()</b> - Assemble a url
+	 *
+	 * @link http://www.php.net/manual/en/yaf-route-simple.assemble.php
+	 *
+	 * @param array $info
+	 * @param array $query
+	 * @return bool
+	 */
+	public function assemble(array $info, array $query = null){ }
 }
 
 /**
@@ -2651,6 +2686,17 @@ final class Yaf_Route_Supervar implements Yaf_Route_Interface {
 	 * @return bool If there is a key(which was defined in Yaf_Route_Supervar::__construct()) in $_GET, return TRUE. otherwise return FALSE.
 	 */
 	public function route(Yaf_Request_Abstract $request){ }
+
+	/**
+	 * <p><b>Yaf_Route_Supervar::assemble()</b> - Assemble a url
+	 *
+	 * @link http://www.php.net/manual/en/yaf-route-supervar.assemble.php
+	 *
+	 * @param array $info
+	 * @param array $query
+	 * @return bool
+	 */
+	public function assemble(array $info, array $query = null){ }
 }
 
 /**
@@ -2681,10 +2727,11 @@ final class Yaf_Route_Rewrite extends Yaf_Router implements Yaf_Route_Interface 
 	 * <br/>
 	 * <p>either of m/c/a in this array is optional, if you don't assign a specific value, it will be routed to default.</p>
 	 * @param array $verify
+	 * @param string $reverse
 	 *
 	 * @throws Yaf_Exception_TypeError
 	 */
-	public function __construct($match, array $route, array $verify = null){ }
+	public function __construct($match, array $route, array $verify = null, $reverse = null){ }
 
 	/**
 	 * @link http://www.php.net/manual/en/yaf-route-rewrite.route.php
@@ -2694,6 +2741,17 @@ final class Yaf_Route_Rewrite extends Yaf_Router implements Yaf_Route_Interface 
 	 * @return bool
 	 */
 	public function route(Yaf_Request_Abstract $request){ }
+
+	/**
+	 * <p><b>Yaf_Route_Rewrite::assemble()</b> - Assemble a url
+	 *
+	 * @link http://www.php.net/manual/en/yaf-route-rewrite.assemble.php
+	 *
+	 * @param array $info
+	 * @param array $query
+	 * @return bool
+	 */
+	public function assemble(array $info, array $query = null){ }
 }
 
 /**
@@ -2719,6 +2777,10 @@ final class Yaf_Route_Regex extends Yaf_Router implements Yaf_Route_Interface {
 	 * @var array
 	 */
 	protected $_verify;
+	/**
+	 * @var string
+	 */
+	protected $_reverse;
 
 	/**
 	 * @link http://www.php.net/manual/en/yaf-route-regex.construct.php
@@ -2729,10 +2791,11 @@ final class Yaf_Route_Regex extends Yaf_Router implements Yaf_Route_Interface {
 	 * <p>either of m/c/a in this array is optional, if you don't assign a specific value, it will be routed to default.</p>
 	 * @param array $map A array to assign name to the captures in the match result.
 	 * @param array $verify
+	 * @param string $reverse
 	 *
 	 * @throws Yaf_Exception_TypeError
 	 */
-	public function __construct($match, array $route, array $map = null, array $verify = null){ }
+	public function __construct($match, array $route, array $map = null, array $verify = null, $reverse = null){ }
 
 	/**
 	 * Route a incoming request.
@@ -2744,6 +2807,17 @@ final class Yaf_Route_Regex extends Yaf_Router implements Yaf_Route_Interface {
 	 * @return bool If the pattern given by the first parameter of Yaf_Route_Regex::_construct() matches the request uri, return TRUE, otherwise return FALSE.
 	 */
 	public function route(Yaf_Request_Abstract $request){ }
+
+	/**
+	 * <p><b>Yaf_Route_Regex::assemble()</b> - Assemble a url
+	 *
+	 * @link http://www.php.net/manual/en/yaf-route-regex.assemble.php
+	 *
+	 * @param array $info
+	 * @param array $query
+	 * @return bool
+	 */
+	public function assemble(array $info, array $query = null){ }
 }
 
 /**
@@ -2780,6 +2854,17 @@ final class Yaf_Route_Map implements Yaf_Route_Interface {
 	 * @return bool
 	 */
 	public function route(Yaf_Request_Abstract $request){ }
+
+	/**
+	 * <p><b>Yaf_Route_Map::assemble()</b> - Assemble a url
+	 *
+	 * @link http://www.php.net/manual/en/yaf-route-map.assemble.php
+	 *
+	 * @param array $info
+	 * @param array $query
+	 * @return bool
+	 */
+	public function assemble(array $info, array $query = null){ }
 }
 
 /**

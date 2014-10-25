@@ -20,4 +20,17 @@ interface Route_Interface {
 	 * @return bool
 	 */
 	function route(\Yaf\Request_Abstract $request);
+
+	/**
+	 * <p><b>\Yaf\Route_Interface::assemble()</b> - assemble a request<br/>
+	 * <p>this method returns a url according to the argument info, and append query strings to the url according to the argument query.</p>
+	 * <p>a route should implement this method according to its own route rules, and do a reverse progress.</p>
+	 *
+	 * @link http://www.php.net/manual/en/yaf-route-interface.assemble.php
+	 *
+	 * @param array $info
+	 * @param array $query
+	 * @return bool
+	 */
+	function assemble(array $info, array $query = null);
 }

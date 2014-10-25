@@ -35,4 +35,15 @@ final class Map implements \Yaf\Route_Interface {
 	 * @return bool
 	 */
 	public function route(\Yaf\Request_Abstract $request){ }
+
+	/**
+	 * <p><b>\Yaf\Route\Map::assemble()</b> - Assemble a url
+	 *
+	 * @link http://www.php.net/manual/en/yaf-route-map.assemble.php
+	 *
+	 * @param array $info
+	 * @param array $query
+	 * @return bool
+	 */
+	public function assemble(array $info, array $query = null){ }
 }

@@ -29,10 +29,11 @@ final class Rewrite extends \Yaf\Router implements \Yaf\Route_Interface {
 	 * <br/>
 	 * <p>either of m/c/a in this array is optional, if you don't assign a specific value, it will be routed to default.</p>
 	 * @param array $verify
+	 * @param string $reverse
 	 *
 	 * @throws\Yaf\Exception\TypeError
 	 */
-	public function __construct($match, array $route, array $verify = null){ }
+	public function __construct($match, array $route, array $verify = null, $reverse = null){ }
 
 	/**
 	 * @link http://www.php.net/manual/en/yaf-route-rewrite.route.php
@@ -42,4 +43,15 @@ final class Rewrite extends \Yaf\Router implements \Yaf\Route_Interface {
 	 * @return bool
 	 */
 	public function route(\Yaf\Request_Abstract $request){ }
+
+	/**
+	 * <p><b>\Yaf\Route\Rewrite::assemble()</b> - Assemble a url
+	 *
+	 * @link http://www.php.net/manual/en/yaf-route-rewrite.assemble.php
+	 *
+	 * @param array $info
+	 * @param array $query
+	 * @return bool
+	 */
+	public function assemble(array $info, array $query = null){ }
 }

@@ -30,4 +30,15 @@ final class Supervar implements \Yaf\Route_Interface {
 	 * @return bool If there is a key(which was defined in \Yaf\Route\Supervar::__construct()) in $_GET, return TRUE. otherwise return FALSE.
 	 */
 	public function route(\Yaf\Request_Abstract $request){ }
+
+	/**
+	 * <p><b>\Yaf\Route\Supervar::assemble()</b> - Assemble a url
+	 *
+	 * @link http://www.php.net/manual/en/yaf-route-supervar.assemble.php
+	 *
+	 * @param array $info
+	 * @param array $query
+	 * @return bool
+	 */
+	public function assemble(array $info, array $query = null){ }
 }

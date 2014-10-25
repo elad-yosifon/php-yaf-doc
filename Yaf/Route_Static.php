@@ -32,4 +32,15 @@ class Route_Static implements \Yaf\Route_Interface {
 	 * @return bool always TRUE
 	 */
 	public function route(\Yaf\Request_Abstract $request){ }
+
+	/**
+	 * <p><b>\Yaf\Route_Static::assemble()</b> - Assemble a url
+	 *
+	 * @link http://www.php.net/manual/en/yaf-route-static.assemble.php
+	 *
+	 * @param array $info
+	 * @param array $query
+	 * @return bool
+	 */
+	public function assemble(array $info, array $query = null){ }
 }
