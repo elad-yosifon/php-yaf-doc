@@ -390,7 +390,7 @@ final class Yaf_Dispatcher {
 	/**
 	 * @link http://www.php.net/manual/en/yaf-dispatcher.getrequest.php
 	 *
-	 * @return Yaf_Request_Abstract
+	 * @return Yaf_Request_Abstract|Yaf_Request_Abstract|Yaf_Request_Simple
 	 */
 	public function getRequest(){ }
 
