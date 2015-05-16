@@ -74,7 +74,7 @@ abstract class Controller_Abstract {
 	 *
 	 * @link http://www.php.net/manual/en/yaf-controller-abstract.getrequest.php
 	 *
-	 * @return \Yaf\Request_Abstract
+	 * @return \Yaf\Request_Abstract|\Yaf\Request\Simple|\Yaf\Request\Http
 	 */
 	public function getRequest(){ }
 
