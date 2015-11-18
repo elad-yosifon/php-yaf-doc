@@ -18,7 +18,7 @@ final class Supervar implements \Yaf\Route_Interface {
 	 *
 	 * @param string $supervar_name The name of key.
 	 *
-	 * @throws\Yaf\Exception\TypeError
+	 * @throws \Yaf\Exception\TypeError
 	 */
 	public function __construct($supervar_name){ }
 
