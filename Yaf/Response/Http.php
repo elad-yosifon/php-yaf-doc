@@ -9,7 +9,7 @@ class Http extends \Yaf\Response_Abstract {
 	/**
 	 * @var int
 	 */
-	protected $_response_code = 200;
+	protected $_response_code = 0;
 
 	/**
 	 *
@@ -31,7 +31,7 @@ class Http extends \Yaf\Response_Abstract {
 	 *
 	 * @return bool
 	 */
-	public function setHeader($name,$value,$replace = false,$response_code = 200){ }
+	public function setHeader($name,$value,$replace = false,$response_code = 0){ }
 
 	/**
 	 * @link http://www.php.net/manual/en/yaf-response-abstract.setallheaders.php
