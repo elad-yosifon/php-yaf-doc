@@ -97,7 +97,7 @@ class Simple extends \Yaf\Request_Abstract {
 	 * @param string $action
 	 * @param string $params
 	 *
-	 * @throws\Yaf\Exception\TypeError
+	 * @throws \Yaf\Exception\TypeError
 	 */
 	public function __construct($method, $controller, $action, $params = null){ }
 

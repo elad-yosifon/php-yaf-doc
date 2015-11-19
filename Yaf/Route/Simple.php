@@ -34,7 +34,7 @@ final class Simple implements \Yaf\Route_Interface {
 	 * @param string $controller_name
 	 * @param string $action_name
 	 *
-	 * @throws\Yaf\Exception\TypeError
+	 * @throws \Yaf\Exception\TypeError
 	 */
 	public function __construct($module_name, $controller_name, $action_name){ }
 

@@ -38,7 +38,7 @@ class Simple implements \Yaf\View_Interface {
 	 * so comes a option named "short_tag",  you can switch this off
 	 * to prevent use short_tag in template.
 	 *
-	 * @throws\Yaf\Exception\TypeError
+	 * @throws \Yaf\Exception\TypeError
 	 */
 	final public function __construct($template_dir, array $options = null){ }
 
@@ -66,7 +66,7 @@ class Simple implements \Yaf\View_Interface {
 	 * @param string $tpl
 	 * @param array $tpl_vars
 	 *
-	 * @throws\Yaf\Exception\LoadFailed\View
+	 * @throws \Yaf\Exception\LoadFailed\View
 	 *
 	 * @return string|void
 	 */
@@ -80,7 +80,7 @@ class Simple implements \Yaf\View_Interface {
 	 * @param string $tpl
 	 * @param array $tpl_vars
 	 *
-	 * @throws\Yaf\Exception\LoadFailed\View
+	 * @throws \Yaf\Exception\LoadFailed\View
 	 *
 	 * @return bool
 	 */

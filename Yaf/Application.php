@@ -18,11 +18,11 @@ final class Application {
 	 */
 	protected static $_app;
 	/**
-	 * @var\Yaf\Config_Abstract
+	 * @var \Yaf\Config_Abstract
 	 */
 	protected $config;
 	/**
-	 * @var\Yaf\Dispatcher
+	 * @var \Yaf\Dispatcher
 	 */
 	protected $dispatcher;
 	/**
@@ -93,7 +93,7 @@ final class Application {
 	 * </p>
 	 * @param string $envrion Which section will be loaded as the final config
 	 *
-	 * @throws\Yaf\Exception\TypeError|\Yaf\Exception\StartupError
+	 * @throws \Yaf\Exception\TypeError|\Yaf\Exception\StartupError
 	 */
 	public function __construct($config, $envrion = null){ }
 
@@ -102,7 +102,7 @@ final class Application {
 	 * return response to client finally.
 	 *
 	 * @link http://www.php.net/manual/en/yaf-application.run.php
-	 * @throws\Yaf\Exception\StartupError
+	 * @throws \Yaf\Exception\StartupError
 	 */
 	public function run(){ }
 
@@ -118,7 +118,7 @@ final class Application {
 	public function execute(callable $entry, $_ = "..."){ }
 
 	/**
-	 * Retrieve the \Yaf\Application instance, alternatively, we also could use\Yaf\Dispatcher::getApplication().
+	 * Retrieve the \Yaf\Application instance, alternatively, we also could use \Yaf\Dispatcher::getApplication().
 	 *
 	 * @link http://www.php.net/manual/en/yaf-application.app.php
 	 *
@@ -148,7 +148,7 @@ final class Application {
 	/**
 	 * @link http://www.php.net/manual/en/yaf-application.getconfig.php
 	 *
-	 * @return\Yaf\Config_Abstract
+	 * @return \Yaf\Config_Abstract
 	 */
 	public function getConfig(){ }
 
@@ -164,7 +164,7 @@ final class Application {
 	/**
 	 * @link http://www.php.net/manual/en/yaf-application.getdispatcher.php
 	 *
-	 * @return\Yaf\Dispatcher
+	 * @return \Yaf\Dispatcher
 	 */
 	public function getDispatcher(){ }
 

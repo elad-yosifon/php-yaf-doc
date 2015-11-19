@@ -2,12 +2,12 @@
 namespace Yaf ;
 
 /**
- * <p>by default,\Yaf\Router only have a <b>\Yaf\Route_Static</b> as its default route.</p>
+ * <p>by default, \Yaf\Router only have a <b>\Yaf\Route_Static</b> as its default route.</p>
  * <br/>
  * <p><b>\Yaf\Route_Static</b> is designed to handle 80% of normal requirements.</p>
  * <br/>
  * <b>Note:</b>
- * <p> it is unnecessary to instance a <b>\Yaf\Route_Static</b>, also unnecessary to add it into\Yaf\Router's routes stack, since there is always be one in\Yaf\Router's routes stack, and always be called at the last time.</p>
+ * <p> it is unnecessary to instance a <b>\Yaf\Route_Static</b>, also unnecessary to add it into \Yaf\Router's routes stack, since there is always be one in \Yaf\Router's routes stack, and always be called at the last time.</p>
  *
  * @link http://www.php.net/manual/en/class.yaf-route-static.php
  *

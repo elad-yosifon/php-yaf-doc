@@ -46,7 +46,7 @@ class Ini extends \Yaf\Config_Abstract implements \Iterator, \Traversable, \Arra
 	 * @param string $config_file path to an INI configure file
 	 * @param string $section which section in that INI file you want to be parsed
 	 *
-	 * @throws\Yaf\Exception\TypeError
+	 * @throws \Yaf\Exception\TypeError
 	 */
 	public function __construct($config_file, $section = null){ }
 

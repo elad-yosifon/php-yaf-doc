@@ -165,7 +165,7 @@ foreach($class_hash as $key => &$value)
 {
 
 	$trimmed = trim(get_namespaced_class_name($key, CD, NSD));
-	$value = ($trimmed{0}=="|" ? '|'.NSD.substr($trimmed,1): NSD. $trimmed);
+	$value = ($trimmed{0}=="|" ? '|'.NSD.substr($trimmed,1): ' '.NSD. $trimmed);
 }
 $class_hash = array_reverse($class_hash);
 $class_hash_keys = array_keys($class_hash);
