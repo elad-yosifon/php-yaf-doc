@@ -10,7 +10,7 @@ namespace Yaf ;
  * <br/>
  * <p>If you have defined a init() method in your custom controller, it will be called as long as the controller was instantiated.</p>
  * <br/>
- * <p>Action may have arguments, when a request coming, if there are the same name variable in the request parameters(see \Yaf\Request_Abstract::getParam()) after routed, Yaf will pass them to the action method (see\Yaf\Action_Abstract::execute()).</p>
+ * <p>Action may have arguments, when a request coming, if there are the same name variable in the request parameters(see \Yaf\Request_Abstract::getParam()) after routed, Yaf will pass them to the action method (see \Yaf\Action_Abstract::execute()).</p>
  * <br/>
  * <b>Note:</b>
  * <p>These arguments are directly fetched without filtering, it should be carefully processed before use them.</p>
@@ -20,8 +20,8 @@ namespace Yaf ;
 abstract class Controller_Abstract {
 
 	/**
-	 * @see\Yaf\Action_Abstract
-	 * @var array You can also define a action method in a separate PHP script by using this property and\Yaf\Action_Abstract.
+	 * @see \Yaf\Action_Abstract
+	 * @var array You can also define a action method in a separate PHP script by using this property and \Yaf\Action_Abstract.
 	 */
 	public $actions;
 	/**

@@ -14,7 +14,7 @@ final class Dispatcher {
 	 */
 	protected static $_instance;
 	/**
-	 * @var\Yaf\Router
+	 * @var \Yaf\Router
 	 */
 	protected $_router;
 	/**
@@ -106,7 +106,7 @@ final class Dispatcher {
 	public function initView($templates_dir, array $options = null){ }
 
 	/**
-	 * This method provides a solution for that if you want use a custom view engine instead of\Yaf\View\Simple
+	 * This method provides a solution for that if you want use a custom view engine instead of \Yaf\View\Simple
 	 *
 	 * @link http://www.php.net/manual/en/yaf-dispatcher.setview.php
 	 *
@@ -125,17 +125,17 @@ final class Dispatcher {
 	public function setRequest(\Yaf\Request_Abstract $request){ }
 
 	/**
-	 * Retrieve the\Yaf\Application instance. same as\Yaf\Application::app().
+	 * Retrieve the \Yaf\Application instance. same as \Yaf\Application::app().
 	 *
 	 * @link http://www.php.net/manual/en/yaf-dispatcher.getapplication.php
-	 * @return\Yaf\Application
+	 * @return \Yaf\Application
 	 */
 	public function getApplication(){ }
 
 	/**
 	 * @link http://www.php.net/manual/en/yaf-dispatcher.getrouter.php
 	 *
-	 * @return\Yaf\Router
+	 * @return \Yaf\Router
 	 */
 	public function getRouter(){ }
 
@@ -240,14 +240,14 @@ final class Dispatcher {
 	 *
 	 * @param \Yaf\Request_Abstract $request
 	 *
-	 * @throws\Yaf\Exception\TypeError
-	 * @throws\Yaf\Exception\RouterFailed
-	 * @throws\Yaf\Exception\DispatchFailed
-	 * @throws\Yaf\Exception\LoadFailed
-	 * @throws\Yaf\Exception\LoadFailed\Action
-	 * @throws\Yaf\Exception\LoadFailed\Controller
+	 * @throws \Yaf\Exception\TypeError
+	 * @throws \Yaf\Exception\RouterFailed
+	 * @throws \Yaf\Exception\DispatchFailed
+	 * @throws \Yaf\Exception\LoadFailed
+	 * @throws \Yaf\Exception\LoadFailed\Action
+	 * @throws \Yaf\Exception\LoadFailed\Controller
 	 *
-	 * @return\Yaf\Response_Abstract
+	 * @return \Yaf\Response_Abstract
 	 */
 	public function dispatch(\Yaf\Request_Abstract $request){ }
 
@@ -263,8 +263,8 @@ final class Dispatcher {
 	public function throwException($flag = null){ }
 
 	/**
-	 * <p>While the application.dispatcher.throwException is On(you can also calling to <b>\Yaf\Dispatcher::throwException(TRUE)</b> to enable it), Yaf will throw\Exception whe error occurs instead of trigger error.</p><br/>
-	 * <p>then if you enable <b>\Yaf\Dispatcher::catchException()</b>(also can enabled by set application.dispatcher.catchException), all uncaught\Exceptions will be caught by ErrorController::error if you have defined one.</p>
+	 * <p>While the application.dispatcher.throwException is On(you can also calling to <b>\Yaf\Dispatcher::throwException(TRUE)</b> to enable it), Yaf will throw \Exception whe error occurs instead of trigger error.</p><br/>
+	 * <p>then if you enable <b>\Yaf\Dispatcher::catchException()</b>(also can enabled by set application.dispatcher.catchException), all uncaught \Exceptions will be caught by ErrorController::error if you have defined one.</p>
 	 *
 	 * @link http://www.php.net/manual/en/yaf-dispatcher.catchexception.php
 	 *
@@ -274,7 +274,7 @@ final class Dispatcher {
 	public function catchException($flag = null){ }
 
 	/**
-	 * Register a plugin(see \Yaf\Plugin_Abstract). Generally, we register plugins in Bootstrap(see\Yaf\Bootstrap_Abstract).
+	 * Register a plugin(see \Yaf\Plugin_Abstract). Generally, we register plugins in Bootstrap(see \Yaf\Bootstrap_Abstract).
 	 *
 	 * @link http://www.php.net/manual/en/yaf-dispatcher.registerplugin.php
 	 *

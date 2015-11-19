@@ -33,7 +33,7 @@ abstract class Request_Abstract {
 	 */
 	protected $language;
 	/**
-	 * @var\Yaf\Exception
+	 * @var \Yaf\Exception
 	 */
 	protected $_exception;
 	/**
@@ -163,7 +163,7 @@ abstract class Request_Abstract {
 	/**
 	 * @link http://www.php.net/manual/en/yaf-request-abstract.getexception.php
 	 *
-	 * @return\Yaf\Exception
+	 * @return \Yaf\Exception
 	 */
 	public function getException(){ }
 

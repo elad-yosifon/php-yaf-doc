@@ -12,7 +12,7 @@ final class Supervar implements \Yaf\Route_Interface {
 	protected $_var_name;
 
 	/**
-	 * <p>\Yaf\Route\Supervar is similar to\Yaf\Route_Static, the difference is that \Yaf\Route\Supervar will look for path info in query string, and the parameter supervar_name is the key.</p>
+	 * <p>\Yaf\Route\Supervar is similar to \Yaf\Route_Static, the difference is that \Yaf\Route\Supervar will look for path info in query string, and the parameter supervar_name is the key.</p>
 	 *
 	 * @link http://www.php.net/manual/en/yaf-route-supervar.construct.php
 	 *

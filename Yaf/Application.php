@@ -118,7 +118,7 @@ final class Application {
 	public function execute(callable $entry, $_ = "..."){ }
 
 	/**
-	 * Retrieve the \Yaf\Application instance, alternatively, we also could use\Yaf\Dispatcher::getApplication().
+	 * Retrieve the \Yaf\Application instance, alternatively, we also could use \Yaf\Dispatcher::getApplication().
 	 *
 	 * @link http://www.php.net/manual/en/yaf-application.app.php
 	 *
