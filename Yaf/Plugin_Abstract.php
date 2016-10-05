@@ -6,7 +6,7 @@ namespace Yaf ;
  * <br/>
  * <p>Plugins are classes. The actual class definition will vary based on the component -- you may need to implement this interface, but the fact remains that the plugin is itself a class.</p>
  * <br/>
- * <p>A plugin could be loaded into Yaf by using\Yaf\Dispatcher::registerPlugin(), after registered, All the methods which the plugin implemented according to this interface, will be called at the proper time.</p>
+ * <p>A plugin could be loaded into Yaf by using \Yaf\Dispatcher::registerPlugin(), after registered, All the methods which the plugin implemented according to this interface, will be called at the proper time.</p>
  * @link http://www.php.net/manual/en/class.yaf-plugin-abstract.php
  */
 abstract class Plugin_Abstract {

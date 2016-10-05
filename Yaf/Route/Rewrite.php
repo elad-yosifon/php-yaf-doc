@@ -31,7 +31,7 @@ final class Rewrite extends \Yaf\Router implements \Yaf\Route_Interface {
 	 * @param array $verify
 	 * @param string $reverse
 	 *
-	 * @throws\Yaf\Exception\TypeError
+	 * @throws \Yaf\Exception\TypeError
 	 */
 	public function __construct($match, array $route, array $verify = null, $reverse = null){ }
 
