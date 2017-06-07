@@ -390,7 +390,7 @@ final class Yaf_Dispatcher {
 	/**
 	 * @link http://www.php.net/manual/en/yaf-dispatcher.getrequest.php
 	 *
-	 * @return Yaf_Request_Abstract
+	 * @return Yaf_Request_Abstract|Yaf_Request_Http|Yaf_Request_Simple
 	 */
 	public function getRequest(){ }
 
@@ -1084,7 +1084,7 @@ abstract class Yaf_Controller_Abstract {
 	 *
 	 * @link http://www.php.net/manual/en/yaf-controller-abstract.getrequest.php
 	 *
-	 * @return Yaf_Request_Abstract
+	 * @return Yaf_Request_Abstract|Yaf_Request_Http|Yaf_Request_Simple
 	 */
 	public function getRequest(){ }
 
@@ -1492,7 +1492,7 @@ abstract class Yaf_Request_Abstract {
 	 * @param string|array $name the variable name, or an array of key=>value pairs
 	 * @param string $value
 	 *
-	 * @return Yaf_Request_Abstract|bool
+	 * @return Yaf_Request_Abstract|Yaf_Request_Http|Yaf_Request_Simple|bool
 	 */
 	public function setParam($name, $value = null){ }
 
@@ -1501,7 +1501,7 @@ abstract class Yaf_Request_Abstract {
 	 *
 	 * @param string $module
 	 *
-	 * @return Yaf_Request_Abstract|bool
+	 * @return Yaf_Request_Abstract|Yaf_Request_Http|Yaf_Request_Simple|bool
 	 */
 	public function setModuleName($module){ }
 
@@ -1510,7 +1510,7 @@ abstract class Yaf_Request_Abstract {
 	 *
 	 * @param string $controller
 	 *
-	 * @return Yaf_Request_Abstract|bool
+	 * @return Yaf_Request_Abstract|Yaf_Request_Http|Yaf_Request_Simple|bool
 	 */
 	public function setControllerName($controller){ }
 
@@ -1519,7 +1519,7 @@ abstract class Yaf_Request_Abstract {
 	 *
 	 * @param string $action
 	 *
-	 * @return Yaf_Request_Abstract|bool
+	 * @return Yaf_Request_Abstract|Yaf_Request_Http|Yaf_Request_Simple|bool
 	 */
 	public function setActionName($action){ }
 
@@ -1587,7 +1587,7 @@ abstract class Yaf_Request_Abstract {
 	 *
 	 * @link http://www.php.net/manual/en/yaf-request-abstract.setrouted.php
 	 *
-	 * @return Yaf_Request_Abstract|bool
+	 * @return Yaf_Request_Abstract|Yaf_Request_Http|Yaf_Request_Simple|bool
 	 */
 	public function setRouted(){ }
 }
