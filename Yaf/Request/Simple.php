@@ -99,7 +99,7 @@ class Simple extends \Yaf\Request_Abstract {
 	 *
 	 * @throws \Yaf\Exception\TypeError
 	 */
-	public function __construct($method, $controller, $action, $params = null){ }
+	public function __construct($method = null, $module = null, $controller = null, $action = null, $params = null){ }
 
 	/**
 	 * @link http://www.php.net/manual/en/yaf-request-simple.clone.php
