@@ -1590,6 +1590,78 @@ abstract class Yaf_Request_Abstract {
 	 * @return Yaf_Request_Abstract|bool
 	 */
 	public function setRouted(){ }
+
+	/**
+	 * Retrieve $_GET variable
+	 *
+	 * @link http://www.php.net/manual/en/yaf-request-http.getquery.php
+	 *
+	 * @param string $name the variable name, if not provided returns all
+	 * @param mixed $default if this parameter is provide, this will be returned if the variable can not be found
+	 *
+	 * @return mixed
+	 */
+	public function getQuery($name = null, $default = null){ }
+
+	/**
+	 * Retrieve $_REQUEST variable
+	 *
+	 * @link http://www.php.net/manual/en/yaf-request-http.getrequest.php
+	 *
+	 * @param string $name the variable name, if not provided returns all
+	 * @param mixed $default if this parameter is provide, this will be returned if the variable can not be found
+	 *
+	 * @return mixed
+	 */
+	public function getRequest($name = null, $default = null){ }
+
+	/**
+	 * Retrieve $_POST variable
+	 *
+	 * @link http://www.php.net/manual/en/yaf-request-http.getpost.php
+	 *
+	 * @param string $name the variable name, if not provided returns all
+	 * @param mixed $default if this parameter is provide, this will be returned if the variable can not be found
+	 *
+	 * @return mixed
+	 */
+	public function getPost($name = null, $default = null){ }
+
+	/**
+	 * Retrieve $_COOKIE variable
+	 *
+	 * @link http://www.php.net/manual/en/yaf-request-http.getcookie.php
+	 *
+	 * @param string $name the variable name, if not provided returns all
+	 * @param mixed $default if this parameter is provide, this will be returned if the variable can not be found
+	 *
+	 * @return mixed
+	 */
+	public function getCookie($name = null, $default = null){ }
+
+	/**
+	 * Retrieve $_FILES variable
+	 *
+	 * @link http://www.php.net/manual/en/yaf-request-http.getfiles.php
+	 *
+	 * @param string $name the variable name, if not provided returns all
+	 * @param mixed $default if this parameter is provide, this will be returned if the variable can not be found
+	 *
+	 * @return mixed
+	 */
+	public function getFiles($name = null, $default = null){ }
+
+	/**
+	 * Retrieve variable from client, this method will search the name in $_REQUEST params, if the name is not found, then will search in $_POST, $_GET, $_COOKIE, $_SERVER
+	 *
+	 * @link http://www.php.net/manual/en/yaf-request-http.get.php
+	 *
+	 * @param string $name the variable name
+	 * @param string $default if this parameter is provide, this will be returned if the variable can not be found
+	 *
+	 * @return mixed
+	 */
+	public function get($name, $default = null){ }
 }
 
 /**
